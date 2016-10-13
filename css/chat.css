@@ -1,0 +1,208 @@
+
+
+#username{
+  color: #eff2f7;
+}
+
+.profilePic{
+  width: 100px;
+  height: 100px;
+}
+
+.profilePic img{
+  width: inherit;
+  height: inherit;
+  background-color: white;
+}
+
+.separator{
+  width: 90%;
+  height: 2px;
+  background-color: #8f959b;
+  
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+      background-color: #1e2124;
+}
+
+.subbar{
+      background-color: #141414;
+}
+.maxWidth{
+  max-width: 100%;
+}
+.fullHeight{
+        height: 100%;
+    min-height: 100%;
+}
+
+
+html,body{height: 100%;
+width: 100%;}
+/* blue #428bca */
+
+
+
+.nav-sidebar > li > a {
+  color:#8f959b;
+}
+
+.nav > li > a:hover{
+    color: #eff2f7;
+    background-color:#1a1a1a;
+}
+
+
+
+#rooms{
+  text-align: center;
+  background-color: #2c3e50;
+}
+
+.title{
+  color: #eff2f7;
+}
+
+.toggle-menu{
+  position: relative;
+  top: 50%;
+  
+  font-size: 16px;
+}
+
+
+/* Chat entry */
+
+#sendmsg{
+  resize: none;
+  border-color: #242424;
+  background-color: #141414;
+  color: white;
+}
+
+#interface{
+  background-color: #282828;
+  padding: .5em;
+}
+
+#interface ul{
+  display: inline;
+}
+
+#interface ul li{
+  margin-left: 5%;
+}
+
+.icon{
+  margin-top: 20%;
+}
+
+.icon img{
+  width: 32px;
+  height: 32px;
+}
+
+.main{
+  background-color: #1e1e1e;
+}
+/*
+ * Main content
+ */
+
+.chatbox{
+  margin-right: 10px;
+        height:65vh;
+    overflow-y:scroll;
+background-color:   #1e1e1e;
+color : white;
+}
+ 
+ /*
+ 
+.main {
+margin-top: 0;
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+*/
+/*
+ * Online/Offline list
+ */
+
+.online{
+  color : green;
+}
+
+.offline{
+  color : grey;
+}
+
+
+/*
+ * Scrollbar
+ */
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/*
+ * Chat messages
+ */
+
+.timestamp{
+  color : #808080;
+  font-size : 80%;
+
+}
+
+.colon{
+  font-size : 85%;
+}
+
+.chatmessage{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

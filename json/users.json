@@ -1,0 +1,47 @@
+{
+	"users": [ 
+		{
+			"id":0,
+			"username": "LEL",  
+			"password": "123",  
+			"level":1,
+			"color":"red",
+			"chatroomIdList":[
+				0,
+				1
+			]
+		}, 
+		{
+			"id":1,
+			"username": "Jesus",  
+			"password": "123",  
+			"level":2,
+			"color":"green",
+			"chatroomIdList":[
+				0,
+				1
+			]
+		},
+		{
+			"id":2,
+			"username": "Mozart",  
+			"password": "123",  
+			"level":2,
+			"color":"purple",
+			"chatroomIdList":[
+				0,
+				1
+			]
+		},
+		{
+			"id":3,
+			"username": "Bach",  
+			"password": "123",  
+			"level":2,
+			"color":"orange",
+			"chatroomIdList":[
+				0
+			]
+		}
+	] 
+}

@@ -1,0 +1,29 @@
+{
+	"chatroom": [ 
+    {
+		"id":0,
+		"name": "Global",
+		"description":"Everyone can talk here!",  
+		"password": null,  
+		"date_of_creation":null,
+		"userIdList":[
+			1,
+			2,
+			3,
+			4
+		]
+    }, 
+    {
+		"id":1,
+		"name": "Restricted",  
+		"description":"Only a few can access",  
+		"password": null,  
+		"date_of_creation":null,
+		"userIdList":[
+			1,
+			2,
+			3
+		]
+    }
+    ] 
+}

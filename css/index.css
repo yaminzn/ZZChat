@@ -1,0 +1,31 @@
+/* 
+	padding : génère de l'espace à l'intérieur de l'élément 
+	margin: génère de l'espace autour de l'élément
+*/
+
+body {
+  background: url('http://fc.isima.fr/~bezheng/zzchat/img/background/2qeUeLd.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+}
+
+#cadre { 
+  padding-top:10px;
+  color: white;
+  margin: 10% auto;
+  background-color: rgba(22,22,22, 0.8);
+  max-width: 350px;
+  border-radius: 15px;
+  padding-bottom: 20px;
+}
+
+#scadre {
+  width: 90%;
+  max-width: 300px;
+  text-align: left;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+

@@ -1,0 +1,16 @@
+{
+	"message":[ 
+	{
+		"username": "Pikachu",
+		"text": "This is an example of JSON",
+		"time": "04:41",
+		"color": "red"
+	},
+	{
+		"username": "Mao",
+		"text": "LUL",
+		"time": "04:41",
+		"color": "blue"
+	}
+]
+}
