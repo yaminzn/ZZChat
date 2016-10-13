@@ -28,12 +28,12 @@ removeGhostUsers();
 </head>
 <body>
 	<div class="row maxWidth fullHeight">
-		<div class="col-md-3 maxWidth fullHeight">
+		<div class="col-xs-3 maxWidth fullHeight">
 			<div class="row fullHeight">
 				<!-- Sidebar -->
 				<?php include 'bars.php'; ?>
 				<!-- Subbar -->
-				<div class="col-md-6 subbar fullHeight">
+				<div class="col-xs-6 subbar fullHeight">
 					<div class="row fullHeight">
 						<ul class="nav nav-sidebar">
 							<li><a class="conv" href="#twitch">Twitch</a></li>
@@ -45,7 +45,7 @@ removeGhostUsers();
 		</div>
 		<!-- Main content -->	
 
-		<div class="col-md-9 maincontent fullHeight">
+		<div class="col-xs-9 maincontent fullHeight">
 			<div class="row fullHeight">
 				<br>
 				<div class="well">All emotes were taken from www.twitchemotes.com API</div>
@@ -58,7 +58,7 @@ removeGhostUsers();
 					$i=0;
 					foreach($json['emotes'] as $key=>$value) {
 						if($i==0) echo '<div class="row">';
-						$text = "<div class=\"col-md-2\"><center><img src=".str_replace("{image_id}",$value['image_id'],$json['template']['small'])." title=".$key."><br>".$key."</center></div>";
+						$text = "<div class=\"col-xs-2\"><center><img src=".str_replace("{image_id}",$value['image_id'],$json['template']['small'])." title=".$key."><br>".$key."</center></div>";
 						echo $text;
 						$i++;
 						if($i==6){
@@ -78,7 +78,7 @@ removeGhostUsers();
 					foreach($json['emotes'] as $key=>$value) {
 						if($i==0) echo '<div class="row">';
 						$fixed = str_replace('\\',"",$value['code']);
-						$text = "<div class=\"col-md-2\"><center><img src=\"https:".str_replace("{{id}}/{{image}}",$value['id']."/1x",$json['urlTemplate'])."\" title=".$fixed."><br>".$fixed."</center></div>";
+						$text = "<div class=\"col-xs-2\"><center><img src=\"https:".str_replace("{{id}}/{{image}}",$value['id']."/1x",$json['urlTemplate'])."\" title=".$fixed."><br>".$fixed."</center></div>";
 						echo $text;
 						$i++;
 						if($i==6){
