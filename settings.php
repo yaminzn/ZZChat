@@ -1,14 +1,9 @@
 <?php
 /* Redirect to log in page if not logged in */
-if(!isset($_SESSION["loginstatus"]) || $_SESSION["loginstatus"] == 0){
-	header('Location: http://fc.isima.fr/~bezheng/zzchat/'); 
-	exit();
-}
+
 
 include 'functions.php';
 
-updateUserActivity();
-removeGhostUsers();
 
 ?>
 
@@ -27,29 +22,11 @@ removeGhostUsers();
 	<link rel="stylesheet" href="css/chat.css" type="text/css" />
 </head>
 <body>
-	<div class="row maxWidth fullHeight">
-		<div class="col-md-3 maxWidth fullHeight">
-			<div class="row fullHeight">
-				<!-- Sidebar -->
-				<?php include 'bars.php'; ?>
-				<!-- Subbar -->
-				<div class="col-md-6 subbar fullHeight">
-					<div class="row fullHeight">
-						<ul class="nav nav-sidebar">
-							<li><a class="conv" href="#twitch">Twitch</a></li>
-							<li><a class="conv" href="#BTTV">Better Twitch TV</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Main content -->	
 
-		<div class="col-md-9 maincontent fullHeight">
-			<div class="row fullHeight">
-				
-			</div>
-		</div>
-	</div>
+<?php
+
+?>
+
+
 </body>
 </html>

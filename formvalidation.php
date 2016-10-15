@@ -17,9 +17,7 @@
 			//If user is indentified
 
 			if($sucess == 1){
-				//Initializing session variable
-				$_SESSION["loginstatus"] = 1;
-
+				loginUser($username);
 				//If remember me is checked, adding cookie to cookie.json and to the user's computer
 				if($rememberme == "true"){
 					$id = rand();

@@ -1,5 +1,12 @@
 <?php
 
+function randomIcon(){
+	$str = file_get_contents("json/emotes/twitchemotes.json");
+	$json = json_decode($str, true);
+
+	echo '<link rel="icon" type="image/png" href="https://static-cdn.jtvnw.net/emoticons/v1/'.$json['emotes'][array_rand($json['emotes'])]['image_id'].'/1.0" />';
+}
+
 function checkAuthorization($id){
 	$userChatroomsIdList = getUserChatroomsIdList($_SESSION["userId"]);
 	if(in_array($id, $userChatroomsIdList)){
@@ -115,8 +122,7 @@ function checkCookieAutoLogin(){
 					//If cookie token is valid
 					if($json['cookie'][$i]['token'] == $_COOKIE['token']){
 
-						$_SESSION["loginstatus"] = 1;
-						$_SESSION["username"] = $json['cookie'][$i]['username'];
+						loginUser($json['cookie'][$i]['username']);
 
 						//SET SESSION VARIABLE!!
 
@@ -167,15 +173,27 @@ function checkuser($username, $pwd)
 	{
 		if($product['username'] === $username){
 			if($product['password'] === $pwd){
-				$_SESSION["username"] = $product['username'];
-				$_SESSION['color'] = $product['color'];
-				$_SESSION["userId"] = $product['id'];
-				$_SESSION["currentChatId"] = 0;
 				return 1;
 			}
 		}
 	}
 	return 0;
+}
+
+function loginUser($username){
+	$str = file_get_contents('json/users.json');
+	$json = json_decode($str, true);
+
+	foreach($json['users'] as $key => $product)
+	{
+		if($product['username'] === $username){
+				$_SESSION["loginstatus"] = 1;
+				$_SESSION["username"] = $product['username'];
+				$_SESSION['color'] = $product['color'];
+				$_SESSION["userId"] = $product['id'];
+				$_SESSION["currentChatId"] = 0;
+		}
+	}
 }
 
 //Chat.php

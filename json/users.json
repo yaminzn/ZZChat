@@ -9,38 +9,46 @@
 			"chatroomIdList":[
 				0,
 				1
+			],
+			"bookmarkChatroomIdList":[
 			]
 		}, 
 		{
 			"id":1,
 			"username": "Jesus",  
 			"password": "123",  
-			"level":2,
+			"level":0,
 			"color":"green",
 			"chatroomIdList":[
 				0,
 				1
+			],
+			"bookmarkChatroomIdList":[
 			]
 		},
 		{
 			"id":2,
 			"username": "Mozart",  
 			"password": "123",  
-			"level":2,
+			"level":0,
 			"color":"purple",
 			"chatroomIdList":[
 				0,
 				1
+			],
+			"bookmarkChatroomIdList":[
 			]
 		},
 		{
 			"id":3,
 			"username": "Bach",  
 			"password": "123",  
-			"level":2,
+			"level":0,
 			"color":"orange",
 			"chatroomIdList":[
 				0
+			],
+			"bookmarkChatroomIdList":[
 			]
 		}
 	] 

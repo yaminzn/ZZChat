@@ -48,3 +48,10 @@ function init(){
 		console.log("init()");
 	});
 }
+
+function loadChatroomInfo(id){
+	$.post("process.php", {function : "loadChatroomInfo", id : id}, function(data){
+		console.log(data);
+		console.log("loadChatroomInfo()");
+	});
+}

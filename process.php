@@ -85,8 +85,16 @@
 			$str = file_get_contents("json/chatrooms/".$_SESSION['currentChatId'].".json");
 			$json = json_decode($str, true);
 			$log['state'] = count($json['message']);
-			
 		break;
+
+		case('loadChatroomInfo'):	
+			$str = file_get_contents("json/chatroom.json");
+			$json = json_decode($str, true);
+
+			$log = $json['chatroom'][$_POST['id']];
+
+		break;
+
     }
 	
     echo json_encode($log);

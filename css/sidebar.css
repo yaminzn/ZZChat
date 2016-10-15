@@ -1,0 +1,36 @@
+li{
+ word-wrap:break-word;
+}
+
+.sidebarframe {
+  background-color:   #1e2124;
+  max-height: 100vh;
+  height: 100vh;
+}
+
+.subbarframe {
+  background-color: #2e3136;
+  max-height: 100vh;
+  height: 100vh;
+}
+
+#sidebarframe{
+  transition: margin 0.3s ease;
+}
+#subbarframe{
+  transition: width 0.3s ease;
+}
+#left{
+  transition: width 0.3s ease;
+}
+#center{
+  transition: width 0.3s ease;
+}
+
+.subbar{
+    color: #5b5d61 !important;
+}
+
+.subbar > ul > li{
+    color: #5b5d61 !important;
+}

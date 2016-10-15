@@ -35,7 +35,7 @@ checkCookieAutoLogin();
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<link rel="icon" type="image/png" href="http://orig00.deviantart.net/a0cf/f/2015/066/5/3/twitch_emoticon___kappa_by_centaurman_plz-d8krk1d.png" />
+	<?php randomIcon(); ?>
 	
 </head>
 <body>
