@@ -21,9 +21,8 @@
             <li><a href="#">Add friends</a></li>
             <li><a href="#">Kick friends</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Rename chatroom</a></li>
-            <li><a href="#">Clean all messages</a></li>                        
-            <li><a href="#">Delete chatroom</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modalRenameChatroom">Rename chatroom</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#modalChangeChatroomDescription">Change description</a></li>                       
           </ul>
         </li>
     </ul>
@@ -42,3 +41,47 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<div class="modal fade" id="modalRenameChatroom" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Rename chatroom</h4><br />
+        <form id="formRenameChatroom" action="javascript:void(0);">
+          <div class="form-group">
+            <label for="previousChatroomName">Previous name</label>
+            <input type="text" class="form-control" id="previousChatroomName" disabled>
+          </div>
+          <div class="form-group">
+            <label for="newChatroomName">New name</label>
+            <input type="text" class="form-control" name="newChatroomName" id="newChatroomName" required autofocus>
+          </div>
+          <button id="submitBtnNewChatroomName" type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalChangeChatroomDescription" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Change chatroom description</h4><br />
+        <form id="formChangeChatroomDescription" action="javascript:void(0);">
+          <div class="form-group">
+            <label for="previousChatroomDescription">Previous description</label>
+            <div id="previousChatroomDescription"></div>
+          </div>
+          <div class="form-group">
+            <label for="newChatroomDescription">New description</label>
+            <textarea class="form-control" name="newChatroomDescription" id="newChatroomDescription" rows="5" autofocus></textarea>
+          </div>
+          <button id="submitBtnChangeChatroomDescription" type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

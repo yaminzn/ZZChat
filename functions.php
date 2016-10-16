@@ -1,5 +1,27 @@
 <?php
 
+function changeChatroomDescription($newChatroomDescription){
+	$str = file_get_contents("json/chatroom.json");
+	$json = json_decode($str, true);
+
+	$json['chatroom'][$_SESSION['currentChatId']]['description'] = $newChatroomDescription;
+
+	$fp = fopen ('json/chatroom.json','w'); 
+	fwrite($fp, json_encode($json));
+	fclose($fp);
+}
+
+function changeChatroomName($newChatroomName){
+	$str = file_get_contents("json/chatroom.json");
+	$json = json_decode($str, true);
+
+	$json['chatroom'][$_SESSION['currentChatId']]['name'] = $newChatroomName;
+
+	$fp = fopen ('json/chatroom.json','w'); 
+	fwrite($fp, json_encode($json));
+	fclose($fp);
+}
+
 /* Retourne les username avec la couleur associé de la liste d'id + une colonne online */
 function returnChatroomOnlineUsers($idList){
 	$str = file_get_contents("json/users.json");

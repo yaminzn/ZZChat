@@ -48,12 +48,3 @@ function init(){
 		console.log("init()");
 	});
 }
-
-function loadChatroomInfo(id){
-	$.post("process.php", {function : "loadChatroomInfo", id : id}, function(data){
-		var obj = jQuery.parseJSON(data);
-		$("#roomName").html(obj.name);
-		loadUsersList();
-		console.log("loadChatroomInfo()");
-	});
-}

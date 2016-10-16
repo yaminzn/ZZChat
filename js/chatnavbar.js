@@ -28,3 +28,49 @@ $("#bookmarkBtn").click(function() {
 	}
 	$("#bookmarkGlyph").toggleClass("glyphicon-heart-empty glyphicon-heart");
 });
+
+$("#submitBtnNewChatroomName").click(function() {
+	$("#formRenameChatroom").submit(function(){
+		validateformRenameChatroom();
+	});
+});
+
+function validateformChangeChatroomDescription(){
+	var name = $("input[name=newChatroomName]").val();
+	$.post("chatnavbarprocess.php", {function : "changeChatroomName", newChatroomName : name }, function(data){
+			loadChatnavbarInfo();
+			$('#modalRenameChatroom').modal('toggle');
+			console.log("changeChatroomName()");
+	});
+	$("input[name=newChatroomName]").val("");
+}
+
+$("#submitBtnChangeChatroomDescription").click(function() {
+	if ($.trim($("#newChatroomDescription").val())) {
+		$("#formChangeChatroomDescription").submit(function(){
+			validateformChangeChatroomDescription();
+		});
+	}
+});
+
+function validateformChangeChatroomDescription(){
+	var description = $("#newChatroomDescription").val().replace(/\n/g, '<br />');
+	console.log(description);
+	$.post("chatnavbarprocess.php", {function : "changeChatroomDescription", newChatroomDescription : description }, function(data){
+		loadChatnavbarInfo();
+		$('#modalChangeChatroomDescription').modal('toggle');
+		console.log("changeChatroomDescription()");
+	});
+	$("#newChatroomDescription").val("");
+}
+
+function loadChatnavbarInfo(){
+	$.post("process.php", {function : "loadChatroomInfo"}, function(data){
+		var obj = jQuery.parseJSON(data);
+		$("#roomName").html(obj.name); //Chat name
+		$("#previousChatroomName").attr("placeholder", obj.name); //Set previous name
+		$("#previousChatroomDescription").html(obj.description); //Set previous name
+
+		console.log("loadChatroomInfo()");
+	});
+}

@@ -132,15 +132,15 @@ if(isset($_GET["id"])){
 						<!-- Barre de droite -->
 						<div class="col-xs-2">
 							<?php 
-								echo"Logged in as : ".$_SESSION['username']."<br>Level : ".$_SESSION['level']; 
-
+								print_r($_SESSION);
 							?>
-							<div id="myPopoverContent"></div>
+							
+						
 						</div>
 					</div>
 				</div>
 			</div>
-
+	<div id="myPopoverContent"></div>
 			<script src="js/chatnavbar.js"></script>
 			<script src="js/chat.js"></script>
 			<script src="js/fixedbars.js"></script>
@@ -188,8 +188,8 @@ if(isset($_GET["id"])){
 
 					setTimeout('init()', 500);
 					setInterval('chat.update()',2000);	
-					loadChatroomInfo(0);
-
+					loadChatnavbarInfo();
+					loadUsersList();
 					setInterval('loadUsersList()',30000);
 
 					//popovers set up
