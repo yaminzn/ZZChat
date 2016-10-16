@@ -28,6 +28,8 @@ if(isset($_GET["id"])){
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 	<link rel="stylesheet" href="css/chat.css" type="text/css" />
 	<link rel="stylesheet" href="css/sidebar.css" type="text/css" />
+	<link rel="stylesheet" href="css/scrollbar.css" type="text/css" />
+	<link rel="stylesheet" href="css/chatnavbar.css" type="text/css" />
 
 	<?php randomIcon(); ?>
 	
@@ -46,10 +48,10 @@ if(isset($_GET["id"])){
 						<!-- Subbar -->
 						<div id="subbarframe" class="col-xs-6 no-padding-margin subbarframe">
 							<div class="subbar pre-scrollable text-left">
-								<div>Bookmarks</div>
-								<div class="separator"></div>
-								<div>All</div>
-								<ul class="nav ">
+								<ul class="nav nav-pills nav-stacked subbarpill">
+									<li><a href="#">Bookmarks</a></li>
+									<div class="separator"></div>
+									<li><a href="#">All</a></li>
 									<?php 
 										$chatroomsIdList = getUserChatroomsIdList($_SESSION["userId"]);
 										$chatroomsList = getUserChatroomsList($chatroomsIdList);
@@ -59,7 +61,7 @@ if(isset($_GET["id"])){
 										}
 									?>
 									<li><a href="#" data-toggle="modal" data-target="#modalNewRoom"><span class="glyphicon glyphicon-plus"></span> New room</a></li>
-									<li><button id="compact" type="button" >Compact</button></li>
+									<li><a><button id="compact" type="button" >Compact</button></a></li>
 								</ul>
 							</div>
 						</div>
@@ -110,12 +112,18 @@ if(isset($_GET["id"])){
 							<div class="row">
 								<div class="col-xs-12">
 									<div id="bottomchat">
-										<span>
+										<div>
 											<textarea id="chatMsgTextArea"  name="message" placeholder="Type your message here" autofocus></textarea>
-										</span>
-										<span>
-											CF OPTIONS SUR FB
-										</span>
+
+										</div>
+										<div class="biggerButton">
+											<span class="glyphicon glyphicon-file"></span>
+											<span class="glyphicon glyphicon-camera"></span>
+											<span class="glyphicon glyphicon-piggy-bank"></span>
+											<span class="glyphicon glyphicon-th-large"></span>
+
+											<span class="pull-right"><button type="button" id="sendMessageBtn" class="btn sendMessageBtn">Send</button></span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -123,12 +131,17 @@ if(isset($_GET["id"])){
 
 						<!-- Barre de droite -->
 						<div class="col-xs-2">
-							mettre des trucs ici
+							<?php 
+								echo"Logged in as : ".$_SESSION['username']."<br>Level : ".$_SESSION['level']; 
+
+							?>
+							<div id="myPopoverContent"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 
+			<script src="js/chatnavbar.js"></script>
 			<script src="js/chat.js"></script>
 			<script src="js/fixedbars.js"></script>
 			<script type="text/javascript" language="javascript">
@@ -156,28 +169,11 @@ if(isset($_GET["id"])){
 					}
 				});
 
-				$("#opm").click(function() {
-					$.post("online.php", function(data){
-						var obj = jQuery.parseJSON(data);
-						$("#onlinelist").html('');
-						for(i=0;i<obj.length;i++){
-							var date = new Date(obj[i].lasttime*1000);
-							if(obj[i].online == 1){
-								$("#onlinelist").append('<span class="glyphicon glyphicon-stop online"></span>');
-							}
-							else{
-								$("#onlinelist").append('<span class="glyphicon glyphicon-stop offline"></span>');
-							}
-							$("#onlinelist").append(' '+obj[i].username+'<br>'+date+'<br>');
-						}
-					});
+				$("#sendMessageBtn").click(function() {
+					chat.send($("#chatMsgTextArea").val());
 				});
 
-				$("#send").click(function() {
-					chat.send($("#sendmsg").val());
-				});
-
-				$("#sendmsg").keypress(function(e) {
+				$("#chatMsgTextArea").keypress(function(e) {
 					if(e.keyCode == 13){
 						e.preventDefault();
 						chat.send($(this).val());
@@ -193,6 +189,29 @@ if(isset($_GET["id"])){
 					setTimeout('init()', 500);
 					setInterval('chat.update()',2000);	
 					loadChatroomInfo(0);
+
+					setInterval('loadUsersList()',30000);
+
+					//popovers set up
+					popoverOptions = {
+						html : true,
+						content: function () {
+					            return $('#myPopoverContent').html();
+					        },
+				        trigger: 'hover',
+				        animation: false,
+				        placement: 'bottom'
+				    };
+				    $('#userlist').popover(popoverOptions);
+
+
+					popoverOptions = {
+						content: "Bookmark this chatroom",
+				        trigger: 'hover',
+				        animation: false,
+				        placement: 'right'
+				    };
+				    $('#bookmarkBtn').popover(popoverOptions)
 				});
 			</script>
 		</body>

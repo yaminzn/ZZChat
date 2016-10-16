@@ -1,11 +1,14 @@
+#myPopoverContent {display: none;}
+
+
 /* Chat Area */
 .chatFrame{
   background-color: #36393e;
 }
 
 .chatboxDiv{
-  height: 78.7vh;
-  max-height: 78.7vh;
+  height: 72.5vh;
+  max-height: 72.5vh;
   overflow-y: hidden;
 }
 .chatboxDiv:hover {
@@ -15,6 +18,13 @@
 #bottomchat{
   background-color: #1e2124;
   padding: .5em;
+}
+
+.biggerButton{
+ font-size: 1.5em;
+ padding-left: 5px;
+ padding-right: 5px;
+ padding-bottom: 5px;
 }
 
 #chatMsgTextArea{
@@ -28,6 +38,22 @@
   padding-left: 5px;
   padding-right: 5px;
 }
+
+.sendMessageBtn { 
+  color: #c9cccc; 
+  background-color: #36393E; 
+  border-color: #36393E; 
+} 
+
+.sendMessageBtn:hover, 
+.sendMessageBtn:focus, 
+.sendMessageBtn:active, 
+.sendMessageBtn.active, 
+.open .dropdown-toggle.sendMessageBtn { 
+  color: #ffffff; 
+  background-color: #181a1c; 
+  border-color: #181a1c; 
+} 
 
 /*
  * Online/Offline list

@@ -1,5 +1,49 @@
 <?php
 
+/* Retourne les username avec la couleur associé de la liste d'id + une colonne online */
+function returnChatroomOnlineUsers($idList){
+	$str = file_get_contents("json/users.json");
+	$json = json_decode($str, true);
+
+	$str2 = file_get_contents("json/lastactivity.json");
+	$json2 = json_decode($str2, true);
+
+	$date = new DateTime();
+	$time = $date->getTimestamp();
+
+	$tab = array();
+	foreach($idList as $key=>$value) {	
+		$online = 0;
+		/*  
+		*	5min = 5 * 60 * 10
+		*		= 300
+		*	User is online if he was active within the last 5 minutes
+		*/	
+		for($i=0;$i<count($json2['lastactivity']);$i++){
+		//	echo $json2['lastactivity'][$i]['userId']." - ".$value."<br>";
+			
+			if($json2['lastactivity'][$i]['userId'] == $value){
+				if($time - 300 < $json2['lastactivity'][$i]['lasttime']){
+					$online = 1;
+				}
+			}
+		}
+		array_push($tab, array("username" => $json['users'][$value]['username'], "color" => $json['users'][$value]['color'], "online" => $online));
+	}
+
+	return $tab;
+}
+
+/* Renvoie les id des utilisateurs dans le chat d'id en argument */
+function returnChatroomUserIdList($id)
+{
+	$str = file_get_contents("json/chatroom.json");
+	$json = json_decode($str, true);
+
+	return $json['chatroom'][$id]['userIdList'];
+}
+
+/* Génère la balise pour avoir une icone d'onglet avec une image aléatoire */
 function randomIcon(){
 	$str = file_get_contents("json/emotes/twitchemotes.json");
 	$json = json_decode($str, true);
@@ -7,6 +51,7 @@ function randomIcon(){
 	echo '<link rel="icon" type="image/png" href="https://static-cdn.jtvnw.net/emoticons/v1/'.$json['emotes'][array_rand($json['emotes'])]['image_id'].'/1.0" />';
 }
 
+/* Vérifie si l'utilisateur est autorisé d'acceder à la chatroom d'id en paramètre */
 function checkAuthorization($id){
 	$userChatroomsIdList = getUserChatroomsIdList($_SESSION["userId"]);
 	if(in_array($id, $userChatroomsIdList)){
@@ -17,6 +62,7 @@ function checkAuthorization($id){
 	}
 }
 
+/* Retourne la liste des id des utilisateurs dans la chatroom d'id en paramètre */
 function getUserChatroomsIdList($id){
 	$str = file_get_contents("json/users.json");
 	$json = json_decode($str, true);
@@ -24,6 +70,7 @@ function getUserChatroomsIdList($id){
 	return $json['users'][$id]['chatroomIdList'];
 }
 
+/* Retourne les info complète sur les utilisateurs de la liste d'id */
 function getUserChatroomsList($idList){
 	$str = file_get_contents("json/chatroom.json");
 	$json = json_decode($str, true);
@@ -36,6 +83,7 @@ function getUserChatroomsList($idList){
 	return $tab;
 }
 
+/* Convertie les emotes en balises images */
 function textToEmote($string){
 	$text = $string;
 
@@ -65,7 +113,7 @@ function textToEmote($string){
 /*
  * Return array of lastactivity.json with an online column
  * 1 : online
- * 0 : offfline
+ * 0 : offline
  */
 function returnOnlineUsers(){
 	/* 	Get file content */
@@ -90,13 +138,13 @@ function returnOnlineUsers(){
 		}
 	}
 
-	return json_encode($json['lastactivity']);
+	return $json['lastactivity'];
 }
 
 //index.php
 
 /*
- * Check cookies for an automatic login
+ * Check cookies for automatic login
  */
 function checkCookieAutoLogin(){
 	if(isset($_COOKIE['id']) && isset($_COOKIE['token'])){
@@ -124,11 +172,6 @@ function checkCookieAutoLogin(){
 
 						loginUser($json['cookie'][$i]['username']);
 
-						//SET SESSION VARIABLE!!
-
-						//TO DO 
-
-
 						$token = hash('sha256', rand());
 
 						$number_of_days = 30 ;
@@ -148,7 +191,6 @@ function checkCookieAutoLogin(){
 				array_push($tab['cookie'], $json['cookie'][$i]);
 			}
 		}
-
 		//Save new token
 		if($res == 1){
 			$fp = fopen ('json/cookie.json','w'); 
@@ -162,7 +204,7 @@ function checkCookieAutoLogin(){
 //formvalidation.php
 
 /*
- * Check if $username and $pwd exist in $tab
+ * Check if $username and $pwd exist
  */
 function checkuser($username, $pwd)
 {
@@ -180,6 +222,7 @@ function checkuser($username, $pwd)
 	return 0;
 }
 
+/* Log l'utilisateur sur le site, charge ses variables de session */
 function loginUser($username){
 	$str = file_get_contents('json/users.json');
 	$json = json_decode($str, true);
@@ -192,6 +235,7 @@ function loginUser($username){
 				$_SESSION['color'] = $product['color'];
 				$_SESSION["userId"] = $product['id'];
 				$_SESSION["currentChatId"] = 0;
+				$_SESSION["level"] = $product['level'];
 		}
 	}
 }
@@ -199,16 +243,16 @@ function loginUser($username){
 //Chat.php
 
 /*
- * Return list of users in users.json
+ * Return list of users id in users.json
  */
-function getUserList(){
+function getUserIdList(){
 	$str = file_get_contents('json/users.json');
 	$json = json_decode($str, true);
 
 	$userList = array();
 
 	for($i=0;$i<count($json['users']);$i++){
-		$userList[$i] = $json['users'][$i]['username'];
+		$userList[$i] = $json['users'][$i]['id'];
 	}
 
 	return $userList;
@@ -221,11 +265,11 @@ function removeGhostUsers(){
 	$str = file_get_contents('json/lastactivity.json');
 	$json = json_decode($str, true);
 
-	$userList = getUserList();
+	$userList = getUserIdList();
 	$tab["lastactivity"] = array();
 
 	for($i=0;$i<count($json['lastactivity']);$i++){
-		$res = array_search($json['lastactivity'][$i]['username'], $userList);
+		$res = array_search($json['lastactivity'][$i]['userId'], $userList);
 		if(!($res === FALSE)){
 			array_push($tab["lastactivity"], $json['lastactivity'][$i]);
 		}
@@ -246,7 +290,7 @@ function updateUserActivity(){
 	$date = new DateTime();
 
 	for($i=0;$i<count($json['lastactivity']);$i++){
-		if($json['lastactivity'][$i]['username'] === $_SESSION["username"]){
+		if($json['lastactivity'][$i]['userId'] === $_SESSION["userId"]){
 			$json['lastactivity'][$i]['lasttime'] = $date->getTimestamp();
 			$json['lastactivity'][$i]['ip'] = $_SERVER['REMOTE_ADDR'];
 			$res = 1;
@@ -254,7 +298,7 @@ function updateUserActivity(){
 	}
 
 	if($res == 0){
-		$tab['username'] = $_SESSION["username"];
+		$tab['userId'] = $_SESSION["userId"];
 		$tab['lasttime'] = $date->getTimestamp();
 		$tab['ip'] = $_SERVER['REMOTE_ADDR'];
 		$json['lastactivity'][count($json['lastactivity'])] = $tab;

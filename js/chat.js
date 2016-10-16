@@ -8,7 +8,7 @@ function sendChat(text){
 }
 
 function clear(){
-	$("#sendmsg").val('').focus();
+	$("#chatMsgTextArea").val('').focus();
 }
 
 function getStateOfChat() {
@@ -51,7 +51,9 @@ function init(){
 
 function loadChatroomInfo(id){
 	$.post("process.php", {function : "loadChatroomInfo", id : id}, function(data){
-		console.log(data);
+		var obj = jQuery.parseJSON(data);
+		$("#roomName").html(obj.name);
+		loadUsersList();
 		console.log("loadChatroomInfo()");
 	});
 }

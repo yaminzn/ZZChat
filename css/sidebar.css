@@ -1,5 +1,7 @@
-li{
- word-wrap:break-word;
+
+.sidebarframe > ul > li,
+.subbarframe > ul > li{
+  word-wrap:break-word;
 }
 
 .sidebarframe {
@@ -9,7 +11,7 @@ li{
 }
 
 .subbarframe {
-  background-color: #2e3136;
+  background-color: #292c30;
   max-height: 100vh;
   height: 100vh;
 }
@@ -33,4 +35,22 @@ li{
 
 .subbar > ul > li{
     color: #5b5d61 !important;
+}
+
+.sidebarpill > li > a {
+  color: #c9cccc;
+}
+
+.sidebarpill > li > a:hover {
+  color: white;
+  background-color: #181a1c;
+}
+
+.subbarpill > li > a {
+  color: #c9cccc;
+}
+
+.subbarpill > li > a:hover {
+  color: white;
+  background-color: #24272b;
 }

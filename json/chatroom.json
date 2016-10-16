@@ -7,10 +7,10 @@
 		"password": null,  
 		"date_of_creation":null,
 		"userIdList":[
+			0,
 			1,
 			2,
-			3,
-			4
+			3
 		]
     }, 
     {
@@ -20,9 +20,9 @@
 		"password": null,  
 		"date_of_creation":null,
 		"userIdList":[
+			0,
 			1,
-			2,
-			3
+			2
 		]
     }
     ] 
