@@ -19,3 +19,5 @@ To do list:
 -upload/gif/photo/emote menu
 
 -chat nav bar option
+
+-.htaccess
