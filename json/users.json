@@ -6,11 +6,11 @@
 			"password": "123",  
 			"level":1,
 			"color":"red",
-			"chatroomIdList":[
+			"channelIdList":[
 				0,
 				1
 			],
-			"bookmarkChatroomIdList":[
+			"bookmarkChannelIdList":[
 			]
 		}, 
 		{
@@ -19,11 +19,11 @@
 			"password": "123",  
 			"level":0,
 			"color":"green",
-			"chatroomIdList":[
+			"channelIdList":[
 				0,
 				1
 			],
-			"bookmarkChatroomIdList":[
+			"bookmarkChannelIdList":[
 			]
 		},
 		{
@@ -32,11 +32,11 @@
 			"password": "123",  
 			"level":0,
 			"color":"purple",
-			"chatroomIdList":[
+			"channelIdList":[
 				0,
 				1
 			],
-			"bookmarkChatroomIdList":[
+			"bookmarkChannelIdList":[
 			]
 		},
 		{
@@ -45,10 +45,10 @@
 			"password": "123",  
 			"level":0,
 			"color":"orange",
-			"chatroomIdList":[
+			"channelIdList":[
 				0
 			],
-			"bookmarkChatroomIdList":[
+			"bookmarkChannelIdList":[
 			]
 		}
 	] 

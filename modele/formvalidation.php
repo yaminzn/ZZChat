@@ -30,7 +30,7 @@
 					setcookie("token", $token, $date_of_expiry);
 
 					/* Adding new entry */
-					$str = file_get_contents('json/cookie.json');
+					$str = file_get_contents('../json/cookie.json');
 					$json = json_decode($str, true);
 
 					$tab["username"] = $username;
@@ -40,7 +40,7 @@
 
 					$json['cookie'][count($json['cookie'])] = $tab;
 
-					$fp = fopen ('json/cookie.json','w'); 
+					$fp = fopen ('../json/cookie.json','w'); 
 					fwrite($fp, json_encode($json));
 					fclose($fp);
 				}

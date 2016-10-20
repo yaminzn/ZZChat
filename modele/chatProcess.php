@@ -4,6 +4,7 @@
 	}
 
 	include 'functions.php';
+		include 'return.php';
 
 	$function = $_POST['function'];
 	$log = array();
@@ -21,34 +22,18 @@
 				break;
 			}
 
-			$str = file_get_contents("json/chatrooms/".$_SESSION['currentChatId'].".json");
+			$str = file_get_contents("../json/channels/".$_SESSION['currentChatId'].".json");
 			$json = json_decode($str, true);
-
-			// remove last two lines 
-			$remove = 2; 
-			// starting position ( skip the last \n in the file if it exists) 
-			$pos = -2; 
-			// file to open 
-			$fp = fopen ("json/chatrooms/".$_SESSION['currentChatId'].".json",'a+'); 
-			while($remove != 0) 
-			{ 
-				if(fseek($fp, $pos--, SEEK_END) == -1 ) 
-				{ 
-					break; 
-				} 
-				else if ( fgetc ( $fp ) == "\n" ) 
-				{ 
-					$remove -= 1; 
-				} 
-			}
-			ftruncate($fp, ftell($fp));
 
 			$tab['username'] = $_SESSION["username"];
 			$tab['text'] = $message;
 			$tab['time'] = date('H:i');
 			$tab['color'] = $_SESSION["color"];
-			
-			fwrite($fp, ",\n".json_encode($tab)."\n]\n}");
+
+			$json['message'][count($json['message'])] = $tab;
+
+			$fp = fopen ("../json/channels/".$_SESSION['currentChatId'].".json",'w'); 
+			fwrite($fp, json_encode($json));
 			fclose($fp); 
 								
 		break;
@@ -57,7 +42,7 @@
 		case('update'):
 			$state = $_POST['state'];
 			
-			$str = file_get_contents("json/chatrooms/".$_SESSION['currentChatId'].".json");
+			$str = file_get_contents("../json/channels/".$_SESSION['currentChatId'].".json");
 			$json = json_decode($str, true);
 			$count = count($json['message']);
 
@@ -82,18 +67,13 @@
 		break;
 		
 		case('getState'):	
-			$str = file_get_contents("json/chatrooms/".$_SESSION['currentChatId'].".json");
+			$str = file_get_contents("../json/channels/".$_SESSION['currentChatId'].".json");
 			$json = json_decode($str, true);
 			
 			$log['state'] = count($json['message']);
 		break;
 
-		case('loadChatroomInfo'):	
-			$str = file_get_contents("json/chatroom.json");
-			$json = json_decode($str, true);
 
-			$log = $json['chatroom'][$_SESSION['currentChatId']];
-		break;
     }
 	
     echo json_encode($log);

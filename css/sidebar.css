@@ -1,56 +1,7 @@
-
-.sidebarframe > ul > li,
-.subbarframe > ul > li{
-  word-wrap:break-word;
+.nav-pills > li > a{
+ color: white;
 }
 
-.sidebarframe {
-  background-color:   #1e2124;
-  max-height: 100vh;
-  height: 100vh;
-}
-
-.subbarframe {
-  background-color: #292c30;
-  max-height: 100vh;
-  height: 100vh;
-}
-
-#sidebarframe{
-  transition: margin 0.3s ease;
-}
-#subbarframe{
-  transition: width 0.3s ease;
-}
-#left{
-  transition: width 0.3s ease;
-}
-#center{
-  transition: width 0.3s ease;
-}
-
-.subbar{
-    color: #5b5d61 !important;
-}
-
-.subbar > ul > li{
-    color: #5b5d61 !important;
-}
-
-.sidebarpill > li > a {
-  color: #c9cccc;
-}
-
-.sidebarpill > li > a:hover {
-  color: white;
-  background-color: #181a1c;
-}
-
-.subbarpill > li > a {
-  color: #c9cccc;
-}
-
-.subbarpill > li > a:hover {
-  color: white;
-  background-color: #24272b;
+.nav-pills {
+ background-color: #1e1f21;
 }

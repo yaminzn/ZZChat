@@ -1,4 +1,9 @@
-#myPopoverContent {display: none;}
+.no-padding-margin {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right:0 !important;
+}
 
 
 /* Chat Area */
@@ -16,15 +21,8 @@
 }
 
 #bottomchat{
-  background-color: #1e2124;
+  /* background-color: #1e2124; */
   padding: .5em;
-}
-
-.biggerButton{
- font-size: 1.5em;
- padding-left: 5px;
- padding-right: 5px;
- padding-bottom: 5px;
 }
 
 #chatMsgTextArea{

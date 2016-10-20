@@ -9,12 +9,12 @@ if (!isset($_SESSION['loginstatus'])){
 }
 
 if($_SESSION["loginstatus"] != 0){
-	header('Location: http://fc.isima.fr/~bezheng/zzchat/chat.php'); 
+	header('Location: http://fc.isima.fr/~bezheng/zzchat/channels.php'); 
 	exit();
 }
 
-include 'functions.php';
-
+include 'modele/functions.php';
+include 'modele/return.php';
 checkCookieAutoLogin();
 
 ?>
@@ -70,12 +70,14 @@ checkCookieAutoLogin();
 
 		<script type="text/javascript" language="javascript">
 			function validateForm(){
+				console.log("validateForm()");
 				var un = $("input[name=username]").val();
 				var pw = $("input[name=password]").val();
 				var cb = $('#rememberme').is(":checked");
-				$.post("formvalidation.php", {username : un , password : pw, checkbox : cb}, function(data){
+				$.post("modele/formvalidation.php", {username : un , password : pw, checkbox : cb}, function(data){
+					console.log(data);
 					if(data == 1){
-						window.location.replace("http://fc.isima.fr/~bezheng/zzchat/chat.php");
+						window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels.php");
 					}
 					else if(data == 0){
 						$("#error").html('<br><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error</strong>, wrong username/password.</div>');
