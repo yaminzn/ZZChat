@@ -10,14 +10,14 @@ To do list:
 
 -admin panel
 
--multichat
+-multichat[ok]
 
--settings
+-settings[soon]
 
 -ui
 
 -upload/gif/photo/emote menu
 
--chat nav bar option
+-channel navbar options[en cours]
 
 -.htaccess
