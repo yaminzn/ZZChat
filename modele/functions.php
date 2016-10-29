@@ -1,44 +1,65 @@
 <?php
 
 function deleteChannel($channelId){
-	
+	//Remove channel in channel.json
+	$str = file_get_contents("../json/channel.json");
+	$json = json_decode($str, true);
+
+	unset($json['channel'][$channelId]);
+	$json['channel'][$channelId] = array_values($json['channel'][$channelId]);
+
+	$fp = fopen ('../json/channel.json','w'); 
+	fwrite($fp, json_encode($json));
+	fclose($fp);
+
+	//Remove channel conversation file
+	unlink("../json/channels/".$channelId.".json");
 }
 
 function removeUserFromChannel($userId, $channelId){
+	//Supprime le channelId de users.json
 	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
 
 	if(($key = array_search($channelId, $json['users'][$userId]['channelIdList'])) !== false) {
     	unset($json['users'][$userId]['channelIdList'][$key]);
+
+    	//Remise en ordre des index
+    	$json['users'][$userId]['channelIdList'] = array_values($json['users'][$userId]['channelIdList']);
 	}
 
 	$fp = fopen ('../json/users.json','w'); 
 	fwrite($fp, json_encode($json));
 	fclose($fp);
 
-
-//---------------------EN COURS
+	//Supprime le userId de channel.json
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
 
-	if(($key = array_search($channelId, $json['channel'][$userId]['channelIdList'])) !== false) {
-    	unset($json['users'][$userId]['channelIdList'][$key]);
+	if(($key = array_search($userId, $json['channel'][$channelId]['userIdList'])) !== false) {
+    	unset($json['channel'][$channelId]['userIdList'][$key]);
+    	$json['channel'][$channelId]['userIdList'] = array_values($json['channel'][$channelId]['userIdList']);
 	}
 
-	$fp = fopen ('../json/users.json','w'); 
+	$fp = fopen ('../json/channel.json','w'); 
 	fwrite($fp, json_encode($json));
 	fclose($fp);
 
-	if(count(returnChannelUserIdList($channelId)) == 0{
+	//S'il n'y a plus personne dans le channel, on le supprime
+	if(empty($json['channel'][$channelId]['userIdList'])){
 		deleteChannel($channelId);
 	}
 }
 
 function createChannelJSON($channelId){
+	//Créer le fichier de conversation du channel qui se nomme : "channelId".json 
 	$filename = "../json/channels/".$channelId.".json";
 	$myfile = fopen($filename, "w");
 
+	//Régler les permissions
 	chmod($filename, 0777);
+
+	//Message lors de la création, à changer
 	$tab['message'] =  array(array("username" => "Bot", "text" => "You seem alone LUL , start chatting by inviting your friends!", "time" => "99:99", "color" => "yellow"));
 
 	fwrite($myfile, json_encode($tab));
@@ -64,6 +85,9 @@ function createChannel($name, $description){
 	$tab['name'] = $name;
 	$tab['description'] = $description;
 	$tab['userIdList'] = array($_SESSION['userId']);
+
+	$date = new DateTime();
+	$tab['date_of_creation'] = $date->getTimestamp();
 
 	$json['channel'][count($json['channel'])] = $tab;
 

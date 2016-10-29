@@ -58,11 +58,13 @@
  */
 
 .online{
-  color : green;
+  color : #20d82f;
+  font-size: 60%;
 }
 
 .offline{
   color : grey;
+font-size: 60%;
 }
 
 /*

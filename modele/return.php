@@ -1,5 +1,19 @@
 <?php
 
+function returnChannelsInfo(){
+	$str = file_get_contents("json/channel.json");
+	$json = json_decode($str, true);
+
+	return $json;
+}
+
+function returnUsersInfo(){
+	$str = file_get_contents("json/users.json");
+	$json = json_decode($str, true);
+
+	return $json;
+}
+
 /* Retourne les username avec la couleur associé de la liste d'id + une colonne online */
 function returnChannelOnlineUsers($idList){
 	$str = file_get_contents("../json/users.json");

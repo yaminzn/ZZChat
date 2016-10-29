@@ -5,11 +5,11 @@ function loadUsersList() {
 		$("#userlist").html('');
 		for(i=0;i<obj.length;i++){
 			if(obj[i].online == 1){
-				$("#userlist").append('ON');
+				$("#userlist").append('<span class="online"><i class="fa fa-circle" aria-hidden="true"></i></span>');
 				j++;
 			}
 			else{
-				$("#userlist").append('OFF');
+				$("#userlist").append('<span class="offline"><i class="fa fa-circle" aria-hidden="true"></i></span>');
 			}
 			$("#userlist").append(' <span style="color:'+obj[i].color+'">'+obj[i].username+'</span><br>');
 		}
@@ -31,9 +31,9 @@ $("#bookmarkBtn").click(function() {
 
 $("#submitBtnLeave").click(function() {
 	$.post("modele/channelProcess.php", {function : "leaveChannel"}, function(data){
-				$('#modalRenameChannel').modal('toggle');
+				$('#modalLeave').modal('toggle');
 				console.log("leaveChannel()");
-				window.location.replace("channels.php");
+				window.location.replace("?id=0");
 	});
 });
 
@@ -55,8 +55,6 @@ function validateformCreateChannel(){
 	$("#newChannelDescription").val("");
 	$("#createChannelDescription").val("");
 }
-
-
 
 $("#submitBtnNewChannelName").click(function() {
 	$("#formRenameChannel").submit(function(){
@@ -104,15 +102,60 @@ function loadChannelInfo(){
 	});
 }
 
+//2 mo maximum
+function checkImgSize(){
+	var file_size = $('#uploadImage')[0].files[0].size;
+	if(file_size>2097152) {
+		$("#chatbox").append("<span style='color:red'>Error : File size is greater than 2MB</span>");
+		return false;
+	} 
+	return true;
+}
 
+$("formUploadImage").submit(function(){
+    var formData = new FormData($(this)[0]);
 
+    $.ajax({
+        url: "modele/chatProcess.php",
+        type: 'POST',
+        data: formData,
+        async: false,
+        success: function (data) {
+            alert(data)
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
 
-
-
-
-
+    return false;
+});
 
 function sendChat(text){
+	//Send image
+	if($('#uploadImage').val() != ''){
+		console.log("sendImg()");
+		if(checkImgSize()){
+
+			var fd = new FormData();
+			fd.append('file', $('#uploadImage')[0].files[0]);
+			console.log(fd);
+			$.ajax({
+				url: 'modele/fileProcess.php',
+				type: 'POST',
+				data: fd,
+				//dataType: 'json',
+				success: function (data) {
+					console.log("data"+data);
+				},
+				cache: false,
+				contentType: false,
+				processData: false
+			});
+		}
+		$('#uploadImage').val("");
+	}
+	//Send text
 	$.post("modele/chatProcess.php", { function : "send", message : text }, function(data){
 	});
 	clear();

@@ -35,7 +35,7 @@
 		break;
 
 		case('leaveChannel'):	
-			removeUserFromChannel($_SESSION['currentChatId']);
+			removeUserFromChannel($_SESSION['userId'], $_SESSION['currentChatId']);
 			$res = 1;
 		break;
     }

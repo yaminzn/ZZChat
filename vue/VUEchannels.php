@@ -8,7 +8,7 @@
 	<!-- <link rel="stylesheet" href="css/sidebar.css" type="text/css" /> -->
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 	<link rel="stylesheet" href="css/chat.css" type="text/css" />
-
+	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<?php echo $icon; ?>
 	
 </head>
@@ -20,16 +20,16 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $username; ?></a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="settings.php">Settings</a>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSettings"><i class="fa fa-cogs" aria-hidden="true"></i> Settings</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="logout.php">Log out</a>
+							<a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</a>
 							<?php if(isset($adminpanel)) echo $adminpanel; ?>
 						</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Bookmarks</a>
+						<a class="nav-link" href="#">Bookmarks <i class="fa fa-bookmark" aria-hidden="true"></i></a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Channels +</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Channels <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
 					<?php 
 					foreach($channelsList as $key=>$value) {
 						echo '<li class="nav-item"><a class="nav-link" href="?id='.$key.'">'.$value['name'].'</a></li>';
@@ -44,7 +44,7 @@
 				<a id="roomName" class="navbar-brand" href="#">roomname</a>
 				<ul class="nav navbar-nav">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings
+						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" href="#">Add
@@ -61,14 +61,13 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="#">Mute</a>
+						<a class="nav-link" href="#"><i class="fa fa-bell" aria-hidden="true"></i></a>
 					</li>						
 					<li class="nav-item">
-						<a class="nav-link" href="#">Bookmark</a>
+						<a class="nav-link" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Help
-						</a>
+						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
 							<a class="dropdown-item" href="emotes.php" target="_blank">Emotes
 							</a>
@@ -92,8 +91,15 @@
 						<div id="bottomchat">
 							<div>
 								<textarea id="chatMsgTextArea"  name="message" placeholder="Type your message here" autofocus></textarea>
-								FILE CAMERA EMOTE GIF
+								<div>
+								<form method="post" id="formUploadImage" action="javascript:void(0);" enctype="multipart/form-data">
+									<i class="fa fa-picture-o" aria-hidden="true"></i><input type="file" id="uploadImage" name="uploadImage" multiple='multiple' accept="image/*">
+								</form>
+
+
+								<i class="fa fa-camera" aria-hidden="true"></i><i class="fa fa-smile-o" aria-hidden="true"></i><i class="fa fa-film" aria-hidden="true"></i>
 								<span class="pull-right"><button type="button" id="sendMessageBtn" class="btn sendMessageBtn">Send</button></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -221,6 +227,8 @@
 				</div>
 			</div>
 		</div>
+
+		<?php include 'VUEsettings.php'; ?>
 
 		<script src="js/chat.js"></script>
 		<script src="js/bootstrap.js"></script>

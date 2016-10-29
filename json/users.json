@@ -5,7 +5,7 @@
 			"username": "LEL",  
 			"password": "123",  
 			"level":1,
-			"color":"red",
+			"color":"#f46b42",
 			"channelIdList":[
 				0,
 				1
