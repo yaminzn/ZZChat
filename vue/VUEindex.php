@@ -34,25 +34,46 @@
 				</div>	  
 				<div class="input-group">
 					<span class="input-group-addon" >
-						<span class="glyphicon glyphicon-pencil"></span></span>
-						<input type="password" class="form-control" name="password" placeholder="Password" required>
-					</div>	
-					<div id="error">
-					</div> 	
-					<div class="checkbox">
-						<label><input id="rememberme" name="rememberme" type="checkbox">Remember me</label>
-					</div>
-					<button type="submit" class="btn btn-primary">Sign in</button>
+						<span class="glyphicon glyphicon-pencil"></span>
+					</span>
+						<input type="password" class="form-control" name="password" placeholder="Password" required />
 				</div>	
-			</form> 
+				<div id="error"></div> 	
+				<div class="checkbox">
+					<label><input id="rememberme" name="rememberme" type="checkbox">Remember me</label>
+				</div>
+					<button type="submit" class="btn btn-primary">Sign in</button>
+			</form>
+			<br>
+			
+			<div id="signup" class="alert alert-info">
+				<a href="javascript:void(0);" class="close" id="closeup" >&times;</a>
+				<h3 class="text-center">Account creation</h3><br>
+				<form id="form-up" class="form-signin"  action="javascript:void(0);">
+					<div class="input-group">
+						<span class="input-group-addon" ><span class="glyphicon glyphicon-user"></span></span>
+						<input type="text" class="form-control" name="username" placeholder="Username" autofocus required>
+					</div>	  
+					<div class="input-group">
+						<span class="input-group-addon" >
+							<span class="glyphicon glyphicon-pencil"></span></span>
+							<input type="password" class="form-control" name="password" placeholder="Password" required>
+						</div>	
+						<div class="error-up">
+						</div> 	
+						<br>
+						<button type="submit" class="btn btn-primary">Sign up</button>	
+				</form>
+			</div>
+			
 			<button id="help" class="btn btn-warning">Create my account :D</button>
 		</div>
 
 		<script type="text/javascript" language="javascript">
 			function validateForm(){
-				console.log("validateForm()");
-				var un = $("input[name=username]").val();
-				var pw = $("input[name=password]").val();
+				//console.log("validateForm()");
+				var un = $("#form input[name=username]").val();
+				var pw = $("#form input[name=password]").val();
 				var cb = $('#rememberme').is(":checked");
 				$.post("modele/formvalidation.php", {username : un , password : pw, checkbox : cb}, function(data){
 					console.log(data);
@@ -64,14 +85,39 @@
 					}
 				});
 			}
+			
+			function newAccountForm(){
+				//console.log("newAccountForm()");
+				var un = $("#form-up input[name='username']").val();
+				var pw = $("#form-up input[name='password']").val();
+				$.post("modele/addAccount.php", {username : un , password : pw}, function(data){
+					console.log(data);
+					if(data == 1){
+						$(".error-up").html('<br><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your account has been created.</div>');
+					}
+					else if(data == 0){
+						$(".error-up").html('<br><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error</strong>, username already taken.</div>');
+					}
+				});
+			}
 
 
 			$("#help").click(function() {
-				$("#error").html('<br><div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong> ( ° ͜ʖ͡°)╭∩╮ No</strong></div>');
+				$('#signup').show();
+				$("#help").hide();
+			});
+			
+			$("#closeup").click(function() {
+				$('#signup').hide();
+				$("#help").show();
 			});
 
 			$("#form").submit(function(){
 				validateForm();
+			});
+			
+			$("#form-up").submit(function(){
+				newAccountForm();
 			});
 		</script>
 	</body>

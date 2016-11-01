@@ -223,6 +223,42 @@ function loginUser($username){
 	}
 }
 
+//addAccount.php
+
+/* Ajoute un nouvel utilisateur dans le fichier JSON */
+function addUser($username, $pwd){
+	
+	$str = file_get_contents('../json/users.json');
+	$json = json_decode($str, true);
+	
+	foreach($json['users'] as $key => $product)
+	{
+		if($product['username'] === $username){
+				return 0;
+		}
+	}
+	
+	/* Le nom de compte est valide : on ajoute l'entrée */
+	
+	$nb = count($json['users']);
+	
+	$tab['id'] = $nb;
+	$tab['username'] = $username;
+	$tab['password'] = $pwd;
+	$tab['level'] = 0;
+	$tab['color'] = "black";
+	$tab['channelIdList'] = [];
+	$tab['bookmarkChannelIdList'] = [];
+	
+	$json['users'][$nb] = $tab;
+	
+	$fp = fopen ('../json/users.json','w') or die("Unable to open file users"); 
+	fwrite($fp, json_encode($json));
+	fclose($fp);
+	
+	return 1;
+}
+
 //Chat.php
 
 /*
