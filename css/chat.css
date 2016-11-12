@@ -7,24 +7,32 @@
 
 
 /* Chat Area */
+/*
 .chatFrame{
-  background-color: #36393e;
+  background-color: #36393E;
 }
-
+*/
 .chatboxDiv{
-  height: 72.5vh;
-  max-height: 72.5vh;
-  overflow-y: hidden;
+  height: 69vh;
+  max-height: 69vh;
+  overflow-y: hidden
 }
-.chatboxDiv:hover {
+.chatboxDiv {
+  word-break: break-all;
   overflow-y: auto;
+  overflow-x: hidden
 }
 
 #bottomchat{
   /* background-color: #1e2124; */
-  padding: .5em;
+  padding: .5em
 }
 
+#chatMsgTextArea{
+   resize: none;
+   width: 100%
+}
+/*
 #chatMsgTextArea{
   resize: none;
   border-color: #242424;
@@ -35,8 +43,9 @@
 
   padding-left: 5px;
   padding-right: 5px;
-}
+}*/
 
+/* for nightmode
 .sendMessageBtn { 
   color: #c9cccc; 
   background-color: #36393E; 
@@ -52,7 +61,7 @@
   background-color: #181a1c; 
   border-color: #181a1c; 
 } 
-
+*/
 /*
  * Online/Offline list
  */
@@ -76,13 +85,101 @@ font-size: 60%;
   font-size : 80%;
 
 }
-
 .colon{
   font-size : 85%;
 }
-
 .chatmessage{
   margin-top: 5px;
   margin-bottom: 5px;
-  color : white;
+}
+
+/* Gif Popover */
+
+.gifSearchbar{
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center
+}
+.gifList{
+  margin: 0 auto;
+  max-height: auto;
+  max-width: 274px
+}
+.gifWrapper{
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  height: 385px;
+  width: 278px;
+}
+#gifRes{
+  max-height: 337px;
+  width: 272px;
+  overflow-y: auto;
+  overflow-x:hidden;
+  text-align: center
+}
+#gif_popover_content_wrapper{
+  display: none;
+}
+.popover-content{
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+
+/* Emote Popover */
+
+#emotes_global, #emotes_bttv, #emotes_custom{
+  height: 300px;
+  width: 272px;
+  overflow-y: auto;
+  overflow-x:hidden;
+  text-align: left
+}
+#emotes_popover_content_wrapper{
+  display: none
+}
+.emotesWrapper{
+  max-height: 337px;
+  width: 272px
+}
+
+/* File upload popover */
+
+#fileUpload_popover_content_wrapper{
+  display: none;
+}
+.fileUploadWrapper{
+  height: 250px;
+  width: 210px;
+}
+.btn-toolbar{
+  margin: 0 0 0 0;
+  text-align: center;
+}​
+#fileList{
+  height: 204px;
+  width: 210px;
+  overflow-y: auto;
+  overflow-x:hidden;
+  text-align: center;
+}
+.list-group-item
+{
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+#fileUl{
+    max-height: 204px;
+    overflow-y: auto; 
+}
+.ulic{
+  padding-top: 4px
+}
+.fileTooBig{
+  background-color: #D52D2D
+}
+
+/* Emotes */
+.miscemote{
+  width: 28px
 }

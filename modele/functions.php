@@ -1,5 +1,24 @@
 <?php
 
+function showBBcodes($text) {
+	// BBcode array
+	$find = array(
+		'~\[b\](.*?)\[/b\]~s',
+		'~\[i\](.*?)\[/i\]~s',
+		'~\[u\](.*?)\[/u\]~s',
+		'~\[s\](.*?)\[/s\]~s'
+	);
+	// HTML tags to replace BBcode
+	$replace = array(
+		'<b>$1</b>',
+		'<i>$1</i>',
+		'<u>$1</u>',
+		'<s>$1</s>'
+	);
+	// Replacing the BBcodes with corresponding HTML tags
+	return preg_replace($find,$replace,$text);
+}
+
 function deleteChannel($channelId){
 	//Remove channel in channel.json
 	$str = file_get_contents("../json/channel.json");
