@@ -119,6 +119,20 @@ function textToEmote($string){
 		$text = preg_replace("/(?<!\S)".$value['code']."(?!\S)/","<img src=\"https:".str_replace("{{id}}/{{image}}",$value['id']."/1x",$json['urlTemplate'])."\" title=".str_replace('\\',"",$value['code']).">",$text);
 	}
 
+	//Custom emotes
+	$str = file_get_contents("../json/emotes/customemotes.json");
+	$json = json_decode($str, true);
+
+	foreach($json['subemotes'] as $key=>$value) {
+		$text = preg_replace("/(?<!\S)".$value['code']."(?!\S)/","<img src=".str_replace("{image_id}",$value['image_id'],$json['template']['small'])." title=".$value['code'].">",$text);
+	}
+	foreach($json['miscemotes'] as $key=>$value) {
+		$text = preg_replace("/(?<!\S)".$value['code']."(?!\S)/","<img src=".$value['image_link']." class=\"miscemote\" title=".$value['code'].">",$text);
+	}	
+
+	//Text formatting
+	$text = showBBcodes($text);
+	
 	return $text;
 }
 

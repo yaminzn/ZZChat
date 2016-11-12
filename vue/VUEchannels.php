@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>ZZ Chat</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 	<!-- <link rel="stylesheet" href="css/sidebar.css" type="text/css" /> -->
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
 	<link rel="stylesheet" href="css/chat.css" type="text/css" />
@@ -81,7 +81,7 @@
 			</nav>
 
 			<div class="row no-padding-margin">
-				<div class="col-md-10 no-padding-margin">
+				<div class="col-md-9 no-padding-margin">
 					<div class="row no-padding-margin">
 						<div id="chatbox" class="chatboxDiv container-fluid">
 							Loading...
@@ -89,22 +89,35 @@
 					</div>
 					<div class="row no-padding-margin">
 						<div id="bottomchat">
+							<textarea id="chatMsgTextArea"  name="message" placeholder="Type your message here" autofocus></textarea>
 							<div>
-								<textarea id="chatMsgTextArea"  name="message" placeholder="Type your message here" autofocus></textarea>
-								<div>
+							<!--
 								<form method="post" id="formUploadImage" action="javascript:void(0);" enctype="multipart/form-data">
-									<i class="fa fa-picture-o" aria-hidden="true"></i><input type="file" id="uploadImage" name="uploadImage" multiple='multiple' accept="image/*">
+								<i class="fa fa-picture-o" aria-hidden="true"></i><input type="file" id="uploadImage" name="uploadImage" multiple='multiple'>
 								</form>
-
-
-								<i class="fa fa-camera" aria-hidden="true"></i><i class="fa fa-smile-o" aria-hidden="true"></i><i class="fa fa-film" aria-hidden="true"></i>
-								<span class="pull-right"><button type="button" id="sendMessageBtn" class="btn sendMessageBtn">Send</button></span>
+							-->
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+									<div class="btn-group btn-group-sm" role="group" aria-label="First group">
+										<button type="button" id="bold" class="btn btn-secondary"><i class="fa fa-bold" aria-hidden="true"></i></button>
+										<button type="button" id="italic" class="btn btn-secondary"><i class="fa fa-italic" aria-hidden="true"></i></button>
+										<button type="button" id="underline" class="btn btn-secondary"><i class="fa fa-underline" aria-hidden="true"></i></button>
+										<button type="button" id="strike" class="btn btn-secondary"><i class="fa fa-strikethrough" aria-hidden="true"></i></button>
+									</div>
+									<div class="btn-group btn-group-sm" role="group" aria-label="Second group">
+										<button type="button" class="btn btn-secondary btn-sm fileUploadPO"><i class="fa fa-paperclip" aria-hidden="true"></i></button>
+										<button type="button" class="btn btn-secondary gifPO po"><i class="fa fa-film" aria-hidden="true"></i></button>
+										<button type="button" class="btn btn-secondary emotesPO po"><i class="fa fa-smile-o" aria-hidden="true"></i></button>
+									</div>
+									<div class="pull-right">
+										<button type="button" id="sendMessageBtn" class="btn btn-sm btn-primary">Send</button>
+									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<span id="userlist">Users list</span>
 				</div>
 			</div>
@@ -180,7 +193,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Change channel</h4>
+						<h4 class="modal-title">Change description</h4>
 					</div>
 					<div class="container">
 						<br />
@@ -228,8 +241,65 @@
 			</div>
 		</div>
 
+		<div id="gif_popover_content_wrapper">
+			<div class="gifWrapper container-fluid">
+				<div class="gifSearchbar">
+					<div class="container">
+						<div class="input-group">
+							<input type="text" id="search" placeholder="Search for gifs" class="form-control" autofocus>
+							<span class="input-group-btn"><button class="btn btn-primary" type="button" id="gifSearchBtn">Go!</button></span>
+						</div>
+					</div>
+				</div>
+				<div id="gifRes">
+				<br><br><br><br><br><br>Pss, wanna buy some gifs?<br>
+					┴┬┴┤( ͡° ͜ʖ├┬┴┬ 
+				</div>
+			</div>
+		</div>
+
+		<div id="emotes_popover_content_wrapper">
+			<div class="emotesWrapper">
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active" id="a_emotes_global" data-toggle="tab" href="#emotes_global">Global</a></li>
+					<li class="nav-item"><a class="nav-link" id="a_emotes_bttv" data-toggle="tab" href="#emotes_bttv">BTTV</a></li>
+					<li class="nav-item"><a class="nav-link" id="a_emotes_custom" data-toggle="tab" href="#emotes_custom">Custom</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="emotes_global" class="tab-pane active">
+					</div>
+					<div id="emotes_bttv" class="tab-pane">
+					</div>
+					<div id="emotes_custom" class="tab-pane">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fileUpload_popover_content_wrapper">
+			<div class="fileUploadWrapper">	
+				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+					<div class="btn-group btn-sm" role="group" aria-label="First group">
+						<button id="addFileUpload" type="button" class="btn btn-secondary">
+							<label id="labelfile-upload" for="file-upload" style="margin: 0 0 0 0;">
+								Add files
+							</label>
+						</button>
+						<button id="upload" type="button" class="btn btn-secondary">Upload</button>
+					</div>
+				</div>
+				<div id="fileList">
+					<ul id="fileUl" class="list-group">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<input id="file-upload" type="file" style="display: none;" multiple='multiple' />
+
 		<?php include 'VUEsettings.php'; ?>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
 		<script src="js/chat.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript">
