@@ -6,18 +6,18 @@ https://github.com/yaminzn
 
 To do list:
 
--chat command/navigation
+-chat command/navigation !!!
 
 -admin panel
 
--multichat[ok]
+1-multichat notif~~
 
--settings[soon]
+-settings...
 
--ui
+-ui :thinking:
 
--upload/gif/photo/emote menu
+-upload/gif backend
 
--channel navbar options[en cours]
+-channel navbar options
 
 -.htaccess
