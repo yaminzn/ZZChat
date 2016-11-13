@@ -4,40 +4,59 @@
 	}
 
 	include 'functions.php';
-		include 'return.php';
+	include 'return.php';
 
 	$function = $_POST['function'];
+
 	$log = array();
 	
 	switch($function) {
 		
 		case('send'):
-			if(empty($_POST['message'])){
+			switch ($_POST['type']) {
+				case "text":
+					if(empty($_POST['message'])){
+						break;
+					}
+
+					$message = htmlentities(strip_tags($_POST['message']));
+
+					if (preg_match("/^[\s]+$/", $message)) {
+						break;
+					}
+
+					//Always defined
+					$tab['type'] = "text";
+					$tab['time'] = date('H:i');
+					$tab['username'] = $_SESSION["username"];
+					$tab['color'] = $_SESSION["color"];
+
+					//Specific to the type
+					$tab['text'] = $message;
+
+					addDataToChannel($tab, $_SESSION['currentChatId']);
+
 				break;
-			}
 
-			$message = htmlentities(strip_tags($_POST['message']));
-			
-			if (preg_match("/^[\s]+$/", $message)) {
+				case "gif":
+					if(empty($_POST['url'])){
+						break;
+					}
+
+					//Always defined
+					$tab['type'] = "gif";
+					$tab['time'] = date('H:i');
+					$tab['username'] = $_SESSION["username"];
+					$tab['color'] = $_SESSION["color"];
+
+					//Specific to the type
+					$tab['url'] = $_POST['url'];
+
+					addDataToChannel($tab, $_SESSION['currentChatId']);
+
 				break;
-			}
-
-			$str = file_get_contents("../json/channels/".$_SESSION['currentChatId'].".json");
-			$json = json_decode($str, true);
-
-			$tab['username'] = $_SESSION["username"];
-			$tab['text'] = $message;
-			$tab['time'] = date('H:i');
-			$tab['color'] = $_SESSION["color"];
-
-			$json['message'][count($json['message'])] = $tab;
-
-			$fp = fopen ("../json/channels/".$_SESSION['currentChatId'].".json",'w'); 
-			fwrite($fp, json_encode($json));
-			fclose($fp); 
-								
+			}					
 		break;
-		
 		
 		case('update'):
 			$state = $_POST['state'];

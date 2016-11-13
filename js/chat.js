@@ -108,9 +108,48 @@ function loadChannelInfo(){
 
 /******************************************************************************* Chat *******************************************************************************/
 
+function sendFiles(){
+	var l = filesToUpload.length;
+	if(l>0){
+		
+		var fd = new FormData();
+		for (var i=0; i<l; i++) {
+			fd.append("fileToUpload[]", filesToUpload[i]);
+		}
+
+		console.log(fd);
+		$.ajax({
+			url: 'modele/fileProcess.php',
+			type: 'POST',
+			data: fd,
+				//dataType: 'json',
+				success: function (data) {
+					console.log("data"+data);
+				},
+				cache: false,
+				contentType: false,
+				processData: false
+		});
+
+
+		filesToUpload = [];
+		$("#fileUl").html('');
+	}
+	else{
+		console.log("Var is empty");
+	}
+}
+
+function sendGif(url){
+	$.post("modele/chatProcess.php", { function : "send", type : "gif",  url : url }, function(data){
+	});
+	chat.update();
+	console.log("sendGif()");	
+}
+
 function sendChat(text){
 	//Send text
-	$.post("modele/chatProcess.php", { function : "send", message : text }, function(data){
+	$.post("modele/chatProcess.php", { function : "send", type : "text",  message : text }, function(data){
 	});
 	clear();
 	chat.update();
@@ -130,11 +169,22 @@ function getStateOfChat() {
 	});
 }
 
+function addElementToChat(obj, i){
+	switch(obj.data[i].type) {
+		case "text":
+			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><span>'+obj.data[i].text+'</span></div>');
+		break;
+		case "gif":
+			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><img class="gif img-thumbnail" style="vertical-align: text-top" src="'+obj.data[i].url+'" /></div>');
+		break;
+	}		
+}
+
 function updateChat(){	
 	$.post("modele/chatProcess.php", {function : "update", state : state}, function(data){
 		var obj = jQuery.parseJSON(data);
 		for (var i = 0; i < obj.data.length; i++) {
-			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><span>'+obj.data[i].text+'</span></div>');
+			addElementToChat(obj, i);
 		}	
 		state = obj.state;
 		console.log("update()");
@@ -152,7 +202,7 @@ function init(){
 	$.post("modele/chatProcess.php", {function : "update", state : 0}, function(data){
 		var obj = jQuery.parseJSON(data);
 		for (var i = obj.data.length - 1; i >= 0; i--) {
-			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span><span class="colon"> : </span><span>'+obj.data[i].text+'</span></div>');
+			addElementToChat(obj, i);
 		}	
 		state = obj.state;
 		$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') }, 20);
@@ -214,6 +264,7 @@ $('body').on("click", "button#gifSearchBtn", function(){
 	}
 }).on("click", ".gifList" ,function(){
 	//send
+	sendGif($(this).attr('src'));
 	console.log($(this).attr('src'));
 	closeAllPopovers(1);
 }).on('click', function (e) {
@@ -332,35 +383,7 @@ function loadEmotesPopover(){
 /******************************************************************************* File upload popover *******************************************************************************/
 
 $("body").on('click', "#upload",function () {
-	var l = filesToUpload.length;
-	if(l>0){
-		
-		var fd = new FormData();
-		for (var i=0; i<l; i++) {
-			fd.append("fileToUpload[]", filesToUpload[i]);
-		}
-
-		console.log(fd);
-		$.ajax({
-			url: 'modele/fileProcess.php',
-			type: 'POST',
-			data: fd,
-				//dataType: 'json',
-				success: function (data) {
-					console.log("data"+data);
-				},
-				cache: false,
-				contentType: false,
-				processData: false
-		});
-
-
-		filesToUpload = [];
-		$("#fileUl").html('');
-	}
-	else{
-		console.log("Var is empty");
-	}
+	sendFiles();
 	$('.fileUploadPO').popover('hide');
 }).on('change','#file-upload' , function(){ 
 	checkUploadFile(); 

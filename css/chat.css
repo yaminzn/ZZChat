@@ -181,5 +181,10 @@ font-size: 60%;
 
 /* Emotes */
 .miscemote{
-  width: 28px
+  max-width: 28px
+}
+
+/* Gif */
+.gif{
+  max-width: 280px
 }

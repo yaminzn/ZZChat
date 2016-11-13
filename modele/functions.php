@@ -1,5 +1,16 @@
 <?php
 
+function addDataToChannel($tab, $channelId){
+	$str = file_get_contents("../json/channels/".$channelId.".json");
+	$json = json_decode($str, true);
+
+	$json['message'][count($json['message'])] = $tab;
+
+	$fp = fopen ("../json/channels/".$channelId.".json",'w'); 
+	fwrite($fp, json_encode($json));
+	fclose($fp); 
+}
+
 function showBBcodes($text) {
 	// BBcode array
 	$find = array(
@@ -79,7 +90,7 @@ function createChannelJSON($channelId){
 	chmod($filename, 0777);
 
 	//Message lors de la création, à changer
-	$tab['message'] =  array(array("username" => "Bot", "text" => "You seem alone LUL , start chatting by inviting your friends!", "time" => "99:99", "color" => "yellow"));
+	$tab['message'] =  array(array("username" => "Bot", "type" => "text", "text" => "You seem alone LUL , start chatting by inviting your friends!", "time" => "99:99", "color" => "yellow"));
 
 	fwrite($myfile, json_encode($tab));
 	fclose($myfile);
@@ -266,8 +277,8 @@ function addUser($username, $pwd){
 	$tab['password'] = $pwd;
 	$tab['level'] = 0;
 	$tab['color'] = "black";
-	$tab['channelIdList'] = [];
-	$tab['bookmarkChannelIdList'] = [];
+	//$tab['channelIdList'] = [];
+	//$tab['bookmarkChannelIdList'] = [];
 	
 	$json['users'][$nb] = $tab;
 	
