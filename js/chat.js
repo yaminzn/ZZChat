@@ -124,7 +124,7 @@ function sendFiles(){
 			data: fd,
 				//dataType: 'json',
 				success: function (data) {
-					console.log("data"+data);
+					console.log(data);
 				},
 				cache: false,
 				contentType: false,
@@ -177,6 +177,12 @@ function addElementToChat(obj, i){
 		case "gif":
 			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><img class="gif img-thumbnail" style="vertical-align: text-top" src="'+obj.data[i].url+'" /></div>');
 		break;
+		case "file":
+			var split = obj.data[i].filename.split("_~");
+			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><a href="files/'+split[1]+'/'+obj.data[i].filename+'" class="btn btn-success btn-sm" role="button" download="'+split[2]+'">'+split[2]+'<i class="fa fa-download" aria-hidden="true"></i></a></div>');
+		break;
+		default:
+			console.log("Error : unknown type");
 	}		
 }
 
@@ -189,7 +195,6 @@ function updateChat(){
 		state = obj.state;
 		console.log("update()");
 	});
-
 }
 
 function Chat () {
