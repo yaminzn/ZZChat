@@ -16,7 +16,7 @@ To do list:
 
 -ui :thinking:
 
--upload/gif backend
+-show picture files
 
 -channel navbar options
 
