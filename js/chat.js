@@ -21,17 +21,6 @@ function loadUsersList() {
 
 /******************************************************************************* Navbar buttons *******************************************************************************/
 
-$("#bookmarkBtn").click(function() {
-	if($("#bookmarkBtn").hasClass("glyphicon-heart-empty")){
-		//ajouter au favoris
-	}
-	else{
-		//retirer des favoris
-
-	}
-	$("#bookmarkGlyph").toggleClass("glyphicon-heart-empty glyphicon-heart");
-});
-
 
 $("#submitBtnLeave").click(function() {
 	$.post("modele/channelProcess.php", {function : "leaveChannel"}, function(data){
@@ -107,6 +96,41 @@ function loadChannelInfo(){
 }
 
 /******************************************************************************* Chat *******************************************************************************/
+$("#sendMessageBtn").click(function() {
+	chat.send($("#chatMsgTextArea").val());
+});
+
+var fruitsCursor = 0;
+var fruits = [""];
+
+$("#chatMsgTextArea").keydown(function(e) {
+	switch(e.which) {
+	    case 13: //Enter
+			e.preventDefault();
+			if($("#chatMsgTextArea").val()){	
+				chat.send($(this).val());
+				fruits.unshift("");
+				fruitsCursor = 0;
+				if(fruits.length > 20)
+					fruits.pop();
+			}
+	    break;
+	    case 40: //Down
+	    	if(fruitsCursor > 0 && fruits.length > 1){
+	        	fruitsCursor--;
+	        	$("#chatMsgTextArea").val(fruits[fruitsCursor]);
+	        }
+	    break;
+	    case 38: //Up
+	    	if(fruitsCursor < (fruits.length - 1) && fruits.length > 1){
+	        	fruitsCursor++;
+	     	   $("#chatMsgTextArea").val(fruits[fruitsCursor]);
+	     	}
+	    break;
+	}
+}).bind('input propertychange', function() {
+		fruits[0] = $("#chatMsgTextArea").val();
+});
 
 function sendFiles(){
 	var l = filesToUpload.length;
@@ -174,12 +198,15 @@ function addElementToChat(obj, i){
 		case "text":
 			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><span>'+obj.data[i].text+'</span></div>');
 		break;
+		case "command":
+			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><span class="command">'+obj.data[i].text+'</span></div>');
+		break;
 		case "gif":
 			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><img class="gif img-thumbnail" style="vertical-align: text-top" src="'+obj.data[i].url+'" /></div>');
 		break;
 		case "file":
 			var split = obj.data[i].filename.split("_~");
-			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><a href="files/'+split[1]+'/'+obj.data[i].filename+'" class="btn btn-success btn-sm" role="button" download="'+split[2]+'">'+split[2]+'<i class="fa fa-download" aria-hidden="true"></i></a></div>');
+			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><a href="files/'+split[1]+'/'+obj.data[i].filename+'" class="btn btn-success btn-sm" role="button" download="'+split[2]+'">'+split[2]+' <i class="fa fa-download" aria-hidden="true"></i></a></div>');
 		break;
 		default:
 			console.log("Error : unknown type");
@@ -189,7 +216,7 @@ function addElementToChat(obj, i){
 function updateChat(){	
 	$.post("modele/chatProcess.php", {function : "update", state : state}, function(data){
 		var obj = jQuery.parseJSON(data);
-		for (var i = 0; i < obj.data.length; i++) {
+		for (var i = obj.data.length - 1; i >= 0; i--) {
 			addElementToChat(obj, i);
 		}	
 		state = obj.state;

@@ -36,6 +36,8 @@
 
 					addDataToChannel($tab, $_SESSION['currentChatId']);
 
+					checkCommands($message);
+
 				break;
 
 				case "gif":
@@ -77,7 +79,6 @@
 				for($i=$state;$i<$count;$i++) {
 					$test[$i-$state] = textToEmote($json['message'][$count-$i+$state-1]);
 				}
-				
 				//print_r($test);
 				$log['data'] = $test;
 			}
