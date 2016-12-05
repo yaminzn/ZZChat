@@ -26,9 +26,6 @@
 							<?php if(isset($adminpanel)) echo $adminpanel; ?>
 						</div>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Bookmarks <i class="fa fa-bookmark" aria-hidden="true"></i></a>
-					</li>
 					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Channels <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
 					<?php 
 					foreach($channelsList as $key=>$value) {
@@ -63,9 +60,6 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#"><i class="fa fa-bell" aria-hidden="true"></i></a>
 					</li>						
-					<li class="nav-item">
-						<a class="nav-link" href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
-					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
@@ -303,18 +297,6 @@
 		<script src="js/chat.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript">
-			$("#sendMessageBtn").click(function() {
-				chat.send($("#chatMsgTextArea").val());
-			});
-
-			$("#chatMsgTextArea").keypress(function(e) {
-				if(e.keyCode == 13){
-					e.preventDefault();
-					chat.send($(this).val());
-				}
-			});
-
-
 			$(document).ready(function(){
 				$("#chatbox").empty();
 
