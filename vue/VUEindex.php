@@ -19,8 +19,9 @@
 	
 </head>
 <body>
+	<?php include("lang/en-lang.php"); ?>
 
-	<div class="container" id="cadre">
+	<div class="container" id="cadre" lang="<?php echo LANG; ?>">
 		<h1>
 			<p class="text-center">ZZ Chat</p>
 		</h1>
@@ -30,76 +31,90 @@
 			<form id="form" class="form-signin"  action="javascript:void(0);">
 				<div class="input-group">
 					<span class="input-group-addon" ><span class="glyphicon glyphicon-user"></span></span>
-					<input type="text" class="form-control" name="username" placeholder="Username" autofocus required>
+					<input type="text" class="form-control" name="username" placeholder="<?php echo INPUT_USERNAME_DESC; ?>" autofocus required>
 				</div>	  
 				<div class="input-group">
 					<span class="input-group-addon" >
 						<span class="glyphicon glyphicon-pencil"></span>
 					</span>
-						<input type="password" class="form-control" name="password" placeholder="Password" required />
+						<input type="password" class="form-control" name="password" placeholder="<?php echo INPUT_PASSWORD_DESC; ?>" required />
 				</div>	
 				<div id="error"></div> 	
 				<div class="checkbox">
-					<label><input id="rememberme" name="rememberme" type="checkbox">Remember me</label>
+					<label><input id="rememberme" name="rememberme" type="checkbox"><?php echo CHECKBOX_TEXT; ?></label>
 				</div>
-					<button type="submit" class="btn btn-primary">Sign in</button>
+					<button type="submit" class="btn btn-primary"><?php echo SIGN_IN_TEXT; ?></button>
 			</form>
 			<br>
 			
 			<div id="signup" class="alert alert-info">
 				<a href="javascript:void(0);" class="close" id="closeup" >&times;</a>
-				<h3 class="text-center">Account creation</h3><br>
+				<h3 class="text-center"><?php echo ACCOUNT_CREATION; ?></h3><br>
 				<form id="form-up" class="form-signin"  action="javascript:void(0);">
 					<div class="input-group">
 						<span class="input-group-addon" ><span class="glyphicon glyphicon-user"></span></span>
-						<input type="text" class="form-control" name="username" placeholder="Username" autofocus required>
+						<input type="text" class="form-control" name="username" placeholder="<?php echo INPUT_USERNAME_DESC; ?>" autofocus required>
 					</div>	  
 					<div class="input-group">
 						<span class="input-group-addon" >
 							<span class="glyphicon glyphicon-pencil"></span></span>
-							<input type="password" class="form-control" name="password" placeholder="Password" required>
+							<input type="password" class="form-control" name="password" placeholder="<?php echo INPUT_PASSWORD_DESC; ?>" required>
 						</div>	
 						<div class="error-up">
 						</div> 	
 						<br>
-						<button type="submit" class="btn btn-primary">Sign up</button>	
+						<button type="submit" class="btn btn-primary"><?php echo SIGN_UP_TEXT; ?></button>	
 				</form>
 			</div>
 			
-			<button id="help" class="btn btn-warning">Create my account :D</button>
+			<button id="help" class="btn btn-warning"><?php echo CREATE_ACC_TEXT; ?></button>
 		</div>
 
 		<script type="text/javascript" language="javascript">
 			function validateForm(){
 				//console.log("validateForm()");
-				var un = $("#form input[name=username]").val();
-				var pw = $("#form input[name=password]").val();
+				var un = $("#form input[name=username]");
+				var pw = $("#form input[name=password]");
 				var cb = $('#rememberme').is(":checked");
-				$.post("modele/formvalidation.php", {username : un , password : pw, checkbox : cb}, function(data){
+				$.post("modele/formvalidation.php", {username : un.val() , password : pw.val(), checkbox : cb}, function(data){
 					console.log(data);
-					if(data == 1){
-						window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels.php");
-					}
-					else if(data == 0){
-						$("#error").html('<br><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error</strong>, wrong username/password.</div>');
+					switch(parseInt(data)){
+						case 1:
+							window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels.php");
+							break;
+						case 0:
+							$("#error").html(err_msg_front + "alert-danger" + err_msg_mid + "<?php echo ERR_WRONG_LOGIN; ?>" + err_msg_back);
+							break;
+						default:
 					}
 				});
+				pw.val("");
 			}
 			
 			function newAccountForm(){
 				//console.log("newAccountForm()");
-				var un = $("#form-up input[name='username']").val();
-				var pw = $("#form-up input[name='password']").val();
-				$.post("modele/addAccount.php", {username : un , password : pw}, function(data){
+				var un = $("#form-up input[name='username']");
+				var pw = $("#form-up input[name='password']");
+				$.post("modele/addAccount.php", {username : un.val() , password : pw.val()}, function(data){
 					console.log(data);
-					if(data == 1){
-						$(".error-up").html('<br><div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Your account has been created.</div>');
-					}
-					else if(data == 0){
-						$(".error-up").html('<br><div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error</strong>, username already taken.</div>');
+					switch(parseInt(data)){
+						case 1:
+							$(".error-up").html(err_msg_front + "alert-success" + err_msg_mid + "<?php echo ACCOUNT_CREATION_SUCCESS; ?>" + err_msg_back);
+							break;
+						case 0:
+							$(".error-up").html(err_msg_front + "alert-danger" + err_msg_mid + "<?php echo ERR_USERNAME_TAKEN; ?>" + err_msg_back);
+							break;
+						default:
+							$('.error-up').html(err_msg_front + "alert-danger" + err_msg_mid + "<?php echo ERR_UNKNOWN; ?>" + err_msg_back);
 					}
 				});
+				un.val("");
+				pw.val("");
 			}
+
+			var err_msg_front = '<br><div class="alert ',
+				err_msg_mid = '" ><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>',
+				err_msg_back = '</div>';
 
 
 			$("#help").click(function() {
