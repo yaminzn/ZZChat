@@ -1,4 +1,56 @@
 <?php
+//Not all commands adds text
+function checkCommands($message){
+	$find = array('/^!cowsay\s(.*)$/', '/^!commands$/');
+	$replace = array('            \\
+               \\
+                     \\     
+                                                         ##        .            
+                                             ## ## ##       ==            
+                                      ## ## ## ##      ===            
+                 /""""""""""""""""""""""""""""""___/ ===        
+        ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~   
+                        \\______ o                        __/            
+                              \\      \\                     __/             
+                                    \\______\\_______/', "commands list: !commands, !cowsay *text*");
+
+	foreach($find as $key=>$value){
+		if(preg_match_all($value, $message, $matches)){
+			if(!empty($matches[1][0])){ //besoin d'argument
+				switch ($key) {
+				    case 0:
+				        $text = "<br> ".$matches[1][0]." <br>".$replace[$key];
+
+						$tab['type'] = "command";
+						$tab['time'] = date('H:i');
+						$tab['username'] = "Chatbot"; //bot name
+						$tab['color'] = "#cc0000";
+
+						//Specific to the type
+						$tab['text'] = $text;
+						addDataToChannel($tab, $_SESSION['currentChatId']);
+				    break;
+				}
+			}
+			else{ //pas besoin d'argument
+				switch ($key) {
+				    case 1:
+				    	$text = $replace[$key];
+
+						$tab['type'] = "command";
+						$tab['time'] = date('H:i');
+						$tab['username'] = "Chatbot"; //bot name
+						$tab['color'] = "#cc0000";
+
+						//Specific to the type
+						$tab['text'] = $text;
+						addDataToChannel($tab, $_SESSION['currentChatId']);
+					break;
+				}
+			}
+		}
+	}
+}
 
 function addDataToChannel($tab, $channelId){
 	$str = file_get_contents("../json/channels/".$channelId.".json");

@@ -93,6 +93,10 @@ font-size: 60%;
   margin-bottom: 5px;
 }
 
+.command{
+  white-space: pre;
+}
+
 /* Gif Popover */
 
 .gifSearchbar{
