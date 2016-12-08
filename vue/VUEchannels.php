@@ -41,7 +41,7 @@
 							}
 						?>
 					</div>
-					
+					<?php print_r($_SESSION); ?>
 				</ul>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Add
+							<a href="#" class="dropdown-item" id="aAddUsers" data-toggle="modal" data-target="#modalAddUsers">Add
 							</a>
 							<a class="dropdown-item" href="#">Kick
 							</a>
@@ -150,14 +150,46 @@
 					</div>
 					<div class="container">
 						<br>
-							HOLD CTRL AND TYPE "WTF" FOR ℱ𝓪𝓷𝓬𝔂 𝓦𝓣ℱ
+						HOLD CTRL AND TYPE "WTF" FOR ℱ𝓪𝓷𝓬𝔂 𝓦𝓣ℱ
 						<br>
 						<br>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+
+		<div class="modal fade" id="modalAddUsers" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add users</h4>
+					</div>
+					<div class="container">
+						<br>
+							<form class="form-inline" action="javascript:void(0);">
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+										<input type="text" class="form-control" id="searchUser" placeholder="Search for a user">
+									</div>
+								</div>
+							
+							<br>
+							<br>
+							<div>
+								<ul id="addUsersList" class="list-group">
+								</ul>
+							</div>
+							<br>
+							<button type="submit" id="submitBtnAddUsers" class="btn btn-primary">Add</button>
+							</form>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<div class="modal fade" id="modalLeave" role="dialog">
 			<div class="modal-dialog">
@@ -175,7 +207,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+
 
 
 		<div class="modal fade" id="modalRenameChannel" role="dialog">

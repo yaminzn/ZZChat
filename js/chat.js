@@ -20,6 +20,33 @@ function loadUsersList() {
 }
 
 /******************************************************************************* Navbar buttons *******************************************************************************/
+$("#aAddUsers").click(function() {
+	$.post("modele/channelProcess.php", {function : "loadAddUsersList"}, function(data){
+		console.log('loadAddUsersList()');
+		$("#addUsersList").html('');
+		var obj = jQuery.parseJSON(data);
+		if(obj.length != 0){
+			$.each(obj, function( index, value ) {
+				$("#addUsersList").append('<li class="list-group-item"><label class="form-check-inline"><input class="form-check-input" value="'+value+'" type="checkbox">\t'+value+'</label></li>');
+			});
+		}
+		else{
+			$("#addUsersList").html('Everybody is in the chat!');
+		}
+	});
+});
+
+$("#submitBtnAddUsers").click(function() {
+	var selected = [];
+	$('#addUsersList input:checked').each(function() {
+	    selected.push($(this).attr('value'));
+	});
+	$.post("modele/channelProcess.php", {function : "addUsers", list : selected}, function(data){
+		console.log(data);
+		loadUsersList() 
+		$('#modalAddUsers').modal('toggle');
+	});
+});
 
 
 $("#submitBtnLeave").click(function() {

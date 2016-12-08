@@ -127,9 +127,9 @@ function removeUserFromChannel($userId, $channelId){
 	fwrite($fp, json_encode($json));
 	fclose($fp);
 
-	//S'il n'y a plus personne dans le channel, on le supprime
+	//S'il n'y a plus personne dans le channel, on le supprime (théoriquement)
 	if(empty($json['channel'][$channelId]['userIdList'])){
-		deleteChannel($channelId);
+		//deleteChannel($channelId);
 	}
 }
 
@@ -142,23 +142,41 @@ function createChannelJSON($channelId){
 	chmod($filename, 0777);
 
 	//Message lors de la création, à changer
-	$tab['message'] =  array(array("username" => "Chatbot", "type" => "text", "text" => "You seem alone LUL , start chatting by inviting your friends!", "time" => date('H:i'), "color" => "#cc0000"));
+	$tab['message'] =  array(array("username" => "Chatbot", "type" => "text", "text" => "Start chatting by inviting your friends!", "time" => date('H:i'), "color" => "#cc0000"));
 
 	fwrite($myfile, json_encode($tab));
 	fclose($myfile);
 }
 
+//Add a userId to a channel
+function addUserToChannel($userId, $channelId){
+	$str = file_get_contents("../json/channel.json");
+	$json = json_decode($str, true);
+
+	if (!in_array($userId, $json['channel'][$channelId]['userIdList'])) {
+		$json['channel'][$channelId]['userIdList'][count($json['channel'][$channelId]['userIdList'])] = $userId;
+	}
+
+	$fp = fopen ('../json/channel.json','w'); 
+	fwrite($fp, json_encode($json, JSON_NUMERIC_CHECK));
+	fclose($fp);	
+}
+
+//Add a channelId to a user
 function addtoUserChannelIdList($userId, $channelId){
 	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
 
-	array_push($json['users'][$userId]['channelIdList'], $channelId);
+	if (!in_array($channelId, $json['users'][$userId]['channelIdList'])) {
+		$json['users'][$userId]['channelIdList'][count($json['users'][$userId]['channelIdList'])] = $channelId;
+	}
 
 	$fp = fopen ('../json/users.json','w'); 
-	fwrite($fp, json_encode($json));
+	fwrite($fp, json_encode($json, JSON_NUMERIC_CHECK));
 	fclose($fp);	
 }
 
+//Create a channel
 function createChannel($name, $description){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
@@ -183,6 +201,7 @@ function createChannel($name, $description){
 	return $tab['id'];
 }
 
+//Change a channel's description
 function changeChannelDescription($newChannelDescription){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
@@ -194,6 +213,7 @@ function changeChannelDescription($newChannelDescription){
 	fclose($fp);
 }
 
+//Change a channel's name
 function changeChannelName($newChannelName){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
@@ -204,9 +224,6 @@ function changeChannelName($newChannelName){
 	fwrite($fp, json_encode($json));
 	fclose($fp);
 }
-
-
-//index.php
 
 /*
  * Check cookies for automatic login
@@ -222,7 +239,7 @@ function checkCookieAutoLogin(){
 
 		/*
 		 * 0 = Not found
-		 * -1 = Error, fuck you hacker
+
 		 * 1 = Found
 		 */
 		$res = 0;

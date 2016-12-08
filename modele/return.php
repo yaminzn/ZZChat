@@ -1,5 +1,16 @@
 <?php
 
+function getUserId($username){
+	$tab = returnUsersInfo();
+	$size = count($tab['users']);
+
+	for($i=0;$i<$size;$i++){
+		if($tab['users'][$i]['username'] == $username)
+			return $tab['users'][$i]['id'];
+	}
+	return -1;
+}
+
 function returnChannelsInfo(){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
