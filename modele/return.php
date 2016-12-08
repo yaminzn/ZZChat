@@ -1,17 +1,33 @@
 <?php
 
 function returnChannelsInfo(){
-	$str = file_get_contents("json/channel.json");
+	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
 
 	return $json;
 }
 
 function returnUsersInfo(){
-	$str = file_get_contents("json/users.json");
+	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
 
 	return $json;
+}
+
+//Renvoie les id des chats de l'id de l'utilisateur en paramètre
+function returnUserChannelIdList($userId){
+	$str = file_get_contents("../json/users.json");
+	$json = json_decode($str, true);
+
+	return $json['users'][$_SESSION['userId']]['channelIdList'];
+}
+
+//Retourne le state de l'id du chat en paramètre
+function returnGetState($chatId){
+	$str = file_get_contents("../json/channels/".$chatId.".json");
+	$json = json_decode($str, true);
+	
+	return count($json['message']);
 }
 
 /* Retourne les username avec la couleur associé de la liste d'id + une colonne online */
@@ -70,7 +86,6 @@ function checkAuthorization($id){
 	$userChannelsIdList = getUserChannelsIdList($_SESSION["userId"]);
 	$res = 0;
 	if(in_array($id, $userChannelsIdList)){
-		$_SESSION["currentChatId"] = $id;
 		$res = 1;
 	}
 	return $res;

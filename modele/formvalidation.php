@@ -12,7 +12,7 @@
 			$password = $_POST['password'];
 			$rememberme = $_POST["checkbox"];
 
-			$sucess = checkuser($username, $password);
+			$sucess = checkuser($username, sha1($password));
 
 			//If user is indentified
 

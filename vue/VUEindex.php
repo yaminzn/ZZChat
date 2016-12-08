@@ -43,7 +43,7 @@
 				<div class="checkbox">
 					<label><input id="rememberme" name="rememberme" type="checkbox"><?php echo CHECKBOX_TEXT; ?></label>
 				</div>
-					<button type="submit" class="btn btn-primary"><?php echo SIGN_IN_TEXT; ?></button>
+					<button type="submit" class="btn btn-primary btn-block"><?php echo SIGN_IN_TEXT; ?></button>
 			</form>
 			<br>
 			
@@ -63,11 +63,11 @@
 						<div class="error-up">
 						</div> 	
 						<br>
-						<button type="submit" class="btn btn-primary"><?php echo SIGN_UP_TEXT; ?></button>	
+						<button type="submit" class="btn btn-primary btn-block"><?php echo SIGN_UP_TEXT; ?></button>	
 				</form>
 			</div>
 			
-			<button id="help" class="btn btn-warning"><?php echo CREATE_ACC_TEXT; ?></button>
+			<button id="help" class="btn btn-warning btn-block"><?php echo CREATE_ACC_TEXT; ?></button>
 		</div>
 
 		<script type="text/javascript" language="javascript">
@@ -80,7 +80,7 @@
 					console.log(data);
 					switch(parseInt(data)){
 						case 1:
-							window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels.php");
+							window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels");
 							break;
 						case 0:
 							$("#error").html(err_msg_front + "alert-danger" + err_msg_mid + "<?php echo ERR_WRONG_LOGIN; ?>" + err_msg_back);
