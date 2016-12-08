@@ -16,15 +16,25 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<?php randomIcon(); ?>
+
+
 	
 </head>
 <body>
-	<?php include("lang/en-lang.php"); ?>
+	<?php  ?>
+	<div id="plouf"></div>
 
 	<div class="container" id="cadre" lang="<?php echo LANG; ?>">
 		<h1>
 			<p class="text-center">ZZ Chat</p>
+
+			<ul class="lang-choice">
+				<li><img src="img/drapeaufr.png" title="Site en français" value="fr" /></li>
+				<li><img src="img/anglais.png" title="Site en anglais" value="en" /></li>
+			</ul>
+
 		</h1>
+
 		<br>
 		
 		<div id="scadre">
@@ -43,7 +53,7 @@
 				<div class="checkbox">
 					<label><input id="rememberme" name="rememberme" type="checkbox"><?php echo CHECKBOX_TEXT; ?></label>
 				</div>
-					<button type="submit" class="btn btn-primary btn-block"><?php echo SIGN_IN_TEXT; ?></button>
+					<button type="submit" class="btn btn-primary"><?php echo SIGN_IN_TEXT; ?></button>
 			</form>
 			<br>
 			
@@ -63,11 +73,11 @@
 						<div class="error-up">
 						</div> 	
 						<br>
-						<button type="submit" class="btn btn-primary btn-block"><?php echo SIGN_UP_TEXT; ?></button>	
+						<button type="submit" class="btn btn-primary"><?php echo SIGN_UP_TEXT; ?></button>	
 				</form>
 			</div>
 			
-			<button id="help" class="btn btn-warning btn-block"><?php echo CREATE_ACC_TEXT; ?></button>
+			<button id="help" class="btn btn-warning"><?php echo CREATE_ACC_TEXT; ?></button>
 		</div>
 
 		<script type="text/javascript" language="javascript">
@@ -80,7 +90,7 @@
 					console.log(data);
 					switch(parseInt(data)){
 						case 1:
-							window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels");
+							window.location.replace("channels.php");
 							break;
 						case 0:
 							$("#error").html(err_msg_front + "alert-danger" + err_msg_mid + "<?php echo ERR_WRONG_LOGIN; ?>" + err_msg_back);
@@ -133,6 +143,15 @@
 			
 			$("#form-up").submit(function(){
 				newAccountForm();
+			});
+
+			$("ul.lang-choice li").on("click", "img", function(){
+				let fic = "lang/" + $(this).attr("value") + "-lang.php";
+				console.log(fic)
+				$.get(fic, function(data, textStatus){
+					$('#plouf').html(data + " ---------------  " + textStatus);
+				});
+				//location.reload();
 			});
 		</script>
 	</body>

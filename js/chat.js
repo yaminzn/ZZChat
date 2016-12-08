@@ -19,6 +19,22 @@ function loadUsersList() {
 	});
 }
 
+function userListKick() {
+	$.post("modele/online.php", function(data){
+		var obj = jQuery.parseJSON(data);
+		var j = 0;
+		$(".list-user").html('');
+		for(i=0;i<obj.length;i++){
+			if(obj[i].online == 1){
+				$(".list-user").append('<span class="online"></span>');
+				j++;
+			}
+			$(".list-user").append(' <span style="color:'+obj[i].color+'">'+obj[i].username+'</span><br>');
+		}
+		console.log("loadUsersList()");
+	});
+}
+
 /******************************************************************************* Navbar buttons *******************************************************************************/
 
 
