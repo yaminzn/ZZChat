@@ -142,7 +142,7 @@ function createChannelJSON($channelId){
 	chmod($filename, 0777);
 
 	//Message lors de la création, à changer
-	$tab['message'] =  array(array("username" => "Bot", "type" => "text", "text" => "You seem alone LUL , start chatting by inviting your friends!", "time" => "99:99", "color" => "yellow"));
+	$tab['message'] =  array(array("username" => "Chatbot", "type" => "text", "text" => "You seem alone LUL , start chatting by inviting your friends!", "time" => date('H:i'), "color" => "#cc0000"));
 
 	fwrite($myfile, json_encode($tab));
 	fclose($myfile);
@@ -164,8 +164,8 @@ function createChannel($name, $description){
 	$json = json_decode($str, true);
 
 	$tab['id'] = $json['channel'][count($json['channel']) - 1]['id'] + 1;
-	$tab['name'] = $name;
-	$tab['description'] = $description;
+	$tab['name'] = htmlspecialchars($name);
+	$tab['description'] = htmlspecialchars($description);
 	$tab['userIdList'] = array($_SESSION['userId']);
 
 	$date = new DateTime();
@@ -187,7 +187,7 @@ function changeChannelDescription($newChannelDescription){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
 
-	$json['channel'][$_SESSION['currentChatId']]['description'] = $newChannelDescription;
+	$json['channel'][$_SESSION['currentChatId']]['description'] = htmlspecialchars($newChannelDescription);
 
 	$fp = fopen ('../json/channel.json','w'); 
 	fwrite($fp, json_encode($json));
@@ -198,7 +198,7 @@ function changeChannelName($newChannelName){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
 
-	$json['channel'][$_SESSION['currentChatId']]['name'] = $newChannelName;
+	$json['channel'][$_SESSION['currentChatId']]['name'] = htmlspecialchars($newChannelName);
 
 	$fp = fopen ('../json/channel.json','w'); 
 	fwrite($fp, json_encode($json));
@@ -326,11 +326,11 @@ function addUser($username, $pwd){
 	
 	$tab['id'] = $nb;
 	$tab['username'] = $username;
-	$tab['password'] = $pwd;
+	$tab['password'] = sha1($pwd);
 	$tab['level'] = 0;
-	$tab['color'] = "black";
-	//$tab['channelIdList'] = [];
-	//$tab['bookmarkChannelIdList'] = [];
+	$tab['color'] = "#000000";
+	$tab['channelIdList'] = Array();
+
 	
 	$json['users'][$nb] = $tab;
 	

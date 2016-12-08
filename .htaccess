@@ -1,0 +1,5 @@
+Options FollowSymLinks
+RewriteEngine On
+RewriteBase /~bezheng/zzchat/
+RewriteRule    ^channels/?$   channels.php?id=0   [L,NC] 
+RewriteRule    ^channels/([0-9]+)/?$   channels.php?id=$1    [L,NC] 

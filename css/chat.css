@@ -5,7 +5,8 @@
   margin-right:0 !important;
 }
 
-
+.list-group-item{border: none}
+.tag{font-size: 100%}
 /* Chat Area */
 /*
 .chatFrame{

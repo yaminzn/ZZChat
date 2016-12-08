@@ -86,14 +86,17 @@
 			$log['state'] = $count;
 		break;
 		
-		case('getState'):	
-			$str = file_get_contents("../json/channels/".$_SESSION['currentChatId'].".json");
-			$json = json_decode($str, true);
-			
-			$log['state'] = count($json['message']);
+		case('getState'):
+			$list = returnUserChannelIdList($_SESSION['userId']);
+			$size = count($list);
+			$tab = array();
+			for($i=0;$i<$size;$i++){
+				$tab["$list[$i]"] = returnGetState($list[$i]);
+			}
+
+			$log['currentChatId'] = $_SESSION['currentChatId'];
+			$log['channels'] = $tab;
 		break;
-
-
     }
 	
     echo json_encode($log);

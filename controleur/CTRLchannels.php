@@ -7,9 +7,12 @@ updateUserActivity();
 removeGhostUsers();
 
 if(isset($_GET["id"])){
-	$id = htmlspecialchars($_GET["id"]);
+	$id = $_GET["id"];
 	if(checkAuthorization($id) == 0) {
 		header('Location: http://fc.isima.fr/~bezheng/zzchat/'); 
+	}
+	else{
+		$_SESSION["currentChatId"] = $id;
 	}
 }
 

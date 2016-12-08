@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>ZZ Chat</title>
+	<base href="http://fc.isima.fr/~bezheng/zzchat/">
 
 	<!-- <link rel="stylesheet" href="css/sidebar.css" type="text/css" /> -->
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
@@ -26,13 +27,21 @@
 							<?php if(isset($adminpanel)) echo $adminpanel; ?>
 						</div>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Channels <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
-					<?php 
-					foreach($channelsList as $key=>$value) {
-						echo '<li class="nav-item"><a class="nav-link" href="?id='.$key.'">'.$value['name'].'</a></li>';
-					}
-					?>
-
+					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Create channel <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
+					<div class="container-fluid">
+						<?php 
+							foreach($channelsList as $key=>$value) {
+								//echo '<li class="nav-item"><a class="nav-link" href="channels/'.$key.'">'.$value['name'].'</a></li>';
+								  echo'<a href="channels/'.$value['id'].'" class="list-group-item">
+		  	<div class="channelList">
+		    	<span '; ?> <?php if($key == $_SESSION['currentChatId']) echo 'id="currentChannel"'; ?> <?php echo 'class="channelName">'.$value['name'].'</span>
+		    	<span class="tag tag-info pull-xs-right"></span>
+		  	</div>
+		  </a>';
+							}
+						?>
+					</div>
+					
 				</ul>
 			</div>
 		</div>
@@ -52,8 +61,10 @@
 							</a>
 							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalChangeChannelDescription">Change description
 							</a>
+							<?php if($_SESSION['currentChatId'] != 0) { ?>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLeave">Leave</a>
+							<?php } ?>
 						</div>
 					</li>
 
@@ -112,7 +123,18 @@
 					</div>
 				</div>
 				<div class="col-md-3">
-					<span id="userlist">Users list</span>
+					<div class="row">
+					<div class="col-md-12">
+					<div id="channelDescription">Channel's description</div>
+					<br>
+					</div>
+					</div>
+					<div class="row">
+					<div class="col-md-12">
+					<div id="userlist">Users list</div>
+					</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>

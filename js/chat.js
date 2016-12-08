@@ -39,7 +39,7 @@ $("#submitBtnCreateChannel").click(function() {
 
 function validateformCreateChannel(){
 	var name = $("#createChannelName").val();
-	var description = $("#createChannelDescription").val().replace(/\n/g, '<br />');
+	var description = $("#createChannelDescription").val().replace(/\n/g, '<br />').substring(0,200);
 	$.post("modele/channelProcess.php", {function : "createChannel", name : name, description : description }, function(data){
 		$('#modalcreateChannel').modal('toggle');
 		console.log("createChannel()");
@@ -74,7 +74,7 @@ $("#submitBtnChangeChannelDescription").click(function() {
 });
 
 function validateformChangeChannelDescription(){
-	var description = $("#newChannelDescription").val().replace(/\n/g, '<br />');
+	var description = $("#newChannelDescription").val().replace(/\n/g, '<br />').substring(0,200);
 	console.log(description);
 	$.post("modele/channelProcess.php", {function : "changeChannelDescription", newChannelDescription : description }, function(data){
 		loadChannelInfo();
@@ -88,8 +88,10 @@ function loadChannelInfo(){
 	$.post("modele/channelProcess.php", {function : "loadChannelInfo"}, function(data){
 		var obj = jQuery.parseJSON(data);
 		$("#roomName").html(obj.name); //Chat name
+		$("#currentChannel").html(obj.name); //Chat name
 		$("#previousChannelName").attr("placeholder", obj.name); //Set previous name
 		$("#previousChannelDescription").html(obj.description); //Set previous name
+		$("#channelDescription").html(obj.description);
 
 		console.log("loadChannelInfo()");
 	});
@@ -176,6 +178,7 @@ function sendChat(text){
 	$.post("modele/chatProcess.php", { function : "send", type : "text",  message : text }, function(data){
 	});
 	clear();
+	stateStartValue[stateOverview['currentChatId']]++;
 	chat.update();
 	$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') });
 	console.log("send()");
@@ -188,8 +191,18 @@ function clear(){
 function getStateOfChat() {
 	$.post("modele/chatProcess.php", { function : "getState"}, function(data){
 		var obj = jQuery.parseJSON(data);
-		state = obj.state;
+		stateOverview = obj;
+		//console.log(stateOverview);
 		console.log("getStateOfChat()");
+	});
+}
+
+function initStateStartValue(){
+	$.post("modele/chatProcess.php", { function : "getState"}, function(data){
+		var obj = jQuery.parseJSON(data);
+		//console.log(obj);
+		stateStartValue = obj.channels;
+		console.log("initStateStartValue()");
 	});
 }
 
@@ -199,6 +212,7 @@ function addElementToChat(obj, i){
 			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><span>'+obj.data[i].text+'</span></div>');
 		break;
 		case "command":
+			stateStartValue[stateOverview['currentChatId']]++;			
 			$("#chatbox").append('<div class="chatmessage"><span class="timestamp">'+obj.data[i].time+'</span> <span style="color:'+obj.data[i].color+'">'+obj.data[i].username+'</span> <span class="colon"> : </span><span class="command">'+obj.data[i].text+'</span></div>');
 		break;
 		case "gif":
@@ -213,13 +227,22 @@ function addElementToChat(obj, i){
 	}		
 }
 
+var stateOverview = new Array();
+stateOverview['currentChatId'] = 0;
+stateOverview['channels'] = new Array;
+stateOverview['channels'][0] = 0;
+
+var stateStartValue = new Array();
+
 function updateChat(){	
-	$.post("modele/chatProcess.php", {function : "update", state : state}, function(data){
+	$.post("modele/chatProcess.php", {function : "update", state : stateOverview['channels'][stateOverview['currentChatId']]}, function(data){
 		var obj = jQuery.parseJSON(data);
 		for (var i = obj.data.length - 1; i >= 0; i--) {
 			addElementToChat(obj, i);
 		}	
-		state = obj.state;
+		stateOverview['channels'][stateOverview['currentChatId']] = obj.state;
+		getStateOfChat();
+		updateChannelsTag();
 		console.log("update()");
 	});
 }
@@ -233,12 +256,31 @@ function Chat () {
 function init(){
 	$.post("modele/chatProcess.php", {function : "update", state : 0}, function(data){
 		var obj = jQuery.parseJSON(data);
+		console.log(obj);
 		for (var i = obj.data.length - 1; i >= 0; i--) {
 			addElementToChat(obj, i);
 		}	
-		state = obj.state;
+		stateOverview['channels'][stateOverview['currentChatId']] = obj.state;
+		initStateStartValue();
 		$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') }, 20);
 		console.log("init()");
+	});
+}
+
+function updateChannelsTag(){
+	var tab = [];
+	$.each(stateStartValue, function( index, value ) {
+		tab.push(index);
+	});
+	$(".tag").each(function(index) {
+		var res = stateOverview['channels'][tab[index]] - stateStartValue[tab[index]];
+		if(res != 0){
+			$(this).html(res);
+		}
+		else{
+			$(this).html('');
+		}
+  		//console.log( index + ": " + stateOverview['channels'][index] );
 	});
 }
 
@@ -285,6 +327,11 @@ $(document).ready(function(){
 		$(".po").not(this).popover('hide');
 		$(this).popover('toggle');
 		e.stopPropagation();
+	});
+
+	$('#chatMsgTextArea').focus(function() {
+		stateStartValue[stateOverview['currentChatId']] = stateOverview['channels'][stateOverview['currentChatId']];
+		updateChannelsTag();
 	});
 });
 
