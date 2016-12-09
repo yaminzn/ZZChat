@@ -1,6 +1,7 @@
 <?php
 
 define("LANG", "en");
+$_SESSION['lang'] = LANG;
 
 /* Page d'accueil -- index.php */
 
@@ -43,6 +44,5 @@ define("CHAN_SETTINGS_KICK", "Kick");
 define("CHAN_SETTINGS_RN", "Rename Channel");
 define("CHAN_SETTINGS_CHANGE_DESC", "Change description");
 define("CHAN_SETTINGS_QUIT", "Leave");
-
 
 ?>

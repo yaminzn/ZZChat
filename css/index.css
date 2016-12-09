@@ -32,3 +32,25 @@ body {
 #signup{
 	display: none;
 }
+
+.lang-choice{
+  background: #DEDEDE;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lang-choice li:first-child{
+  margin-left: 10px;
+}
+
+.lang-choice li{
+  display: inline-block;
+  margin-right: 10px;
+
+  cursor: pointer;
+}

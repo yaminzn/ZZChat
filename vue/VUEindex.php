@@ -1,27 +1,25 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8"> 
-	<title>ZZ Chat</title>
+	<head>
+		<meta charset="utf-8"> 
+		<title>ZZ Chat</title>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-	<!-- Custom CSS-->
-	<link href="css/index.css" rel="stylesheet"> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- Custom CSS-->
+		<link href="css/index.css" rel="stylesheet"> 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<?php randomIcon(); ?>
+		<?php randomIcon(); ?>
 
-
-	
-</head>
+	</head>
 <body>
-	<?php  ?>
+
 	<div id="plouf"></div>
 
 	<div class="container" id="cadre" lang="<?php echo LANG; ?>">
@@ -148,10 +146,10 @@
 			$("ul.lang-choice li").on("click", "img", function(){
 				let fic = "lang/" + $(this).attr("value") + "-lang.php";
 				console.log(fic)
-				$.get(fic, function(data, textStatus){
-					$('#plouf').html(data + " ---------------  " + textStatus);
+				$.get(fic, function(data){
+					location.reload();
 				});
-				//location.reload();
+				
 			});
 		</script>
 	</body>

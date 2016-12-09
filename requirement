@@ -1,0 +1,36 @@
+===> Tchat :
+
+  => Chat requirements
+=> Propose a signin form to the user
+=> Control users input (blank, forbidden characters ...)
+=> Propose to the user the last username he used
+=> Propose a text zone to type user's messages
+=> Propose a tools to format the text messages
+=> Display the online users
+=> Display the online users messages without refreshig the page
+
+  => Global
+=> Propose to switch between at least 2 languages
+=> Database = FILE-BASED !
+=> Passwords must be stored securely
+=> Respect development conventions
+=> Source code MUST be commented (english !)
+
+  => Tooling
+=> The application must be available and working on your public_html account (login/password : david/david)
+=> The app must be unit tested and the coverage must be computed
+=> Source code must be versionned on Git
+
+
+===> Deadlines :
+
+ => 11/12/2016 at midnight
+    - Mail with :
+      - PDF slides (or link to slides.com) => 10 slides max !
+      - report : short ! (must explains what you did, issues encountered, solutions, perspectives ...)
+      - html (in .zip, if you want) test coverage report
+      - link to you'r public_html
+
+ => 12/12/2016 : pitch time !
+    - 5 min. presentation, 10 slides max
+    - must shows at leat development & tooling parts

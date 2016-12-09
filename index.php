@@ -11,16 +11,15 @@ if (!isset($_SESSION['loginstatus'])){
 	$_SESSION["loginstatus"] = 0;
 }
 
-$_SESSION['lang'] = 'fr';
-
 if(!isset($_SESSION['lang'])){
-	include("lang/en-lang.php");
+	include "lang/en-lang.php";
 	$_SESSION['lang'] = "en";
 }
 else{
 	include("lang/". $_SESSION['lang'] ."-lang.php");
 }
 
+print_r($_SESSION);
 
 if($_SESSION["loginstatus"] != 0){
 	header('Location: http://fc.isima.fr/~bezheng/zzchat/channels.php'); 
