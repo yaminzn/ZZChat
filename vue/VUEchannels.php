@@ -55,8 +55,8 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<a href="#" class="dropdown-item" id="aAddUsers" data-toggle="modal" data-target="#modalAddUsers">Add
 							</a>
-							<a class="dropdown-item" href="#">Kick
-							</a>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalKick">Kick
+  							</a>
 							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalRenameChannel">Rename channel
 							</a>
 							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalChangeChannelDescription">Change description
@@ -157,6 +157,27 @@
 				</div>
 			</div>
 		</div>
+
+
+		<div class="modal fade" id="modalKick" role="dialog">
+			<div class="modal-dialog">
+ 				<div class="modal-content">
+ 					<div class="modal-header">
+ 						<button type="button" class="close" data-dismiss="modal">&times;</button>
+ 						<h4 class="modal-title">Kick people</h4>
+ 					</div>
+ 					<div class="container">
+ 
+ 						<div class="list-user"></div>
+ 
+ 						<br>
+						<button type="button" class="btn btn-success btn-block" data-dismiss="modal">Cancel</button>
+ 						<button id="submitqsfqsfqsfqsfqqfqqsf" type="button" class="btn btn-danger btn-block">Confirm</button>
+ 						<br>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
 
 		<div class="modal fade" id="modalAddUsers" role="dialog">
 			<div class="modal-dialog">
