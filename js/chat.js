@@ -136,7 +136,7 @@ $("#chatMsgTextArea").keydown(function(e) {
 	switch(e.which) {
 	    case 13: //Enter
 			e.preventDefault();
-			if($("#chatMsgTextArea").val()){	
+			if($("#chatMsgTextArea").val() && $.trim($("#chatMsgTextArea").val()) != ''){	
 				chat.send($(this).val());
 				fruits.unshift("");
 				fruitsCursor = 0;
@@ -194,10 +194,12 @@ function sendFiles(){
 }
 
 function sendGif(url){
+	stateStartValue[stateOverview['currentChatId']]++;	
 	$.post("modele/chatProcess.php", { function : "send", type : "gif",  url : url }, function(data){
 	});
 	chat.update();
 	console.log("sendGif()");	
+	$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') });
 }
 
 function sendChat(text){
@@ -251,7 +253,7 @@ function addElementToChat(obj, i){
 		break;
 		default:
 			console.log("Error : unknown type");
-	}		
+	}
 }
 
 var stateOverview = new Array();
@@ -267,10 +269,16 @@ function updateChat(){
 		for (var i = obj.data.length - 1; i >= 0; i--) {
 			addElementToChat(obj, i);
 		}	
+		if(obj.data.length > 0){
+				if($("#chatbox").scrollTop() + 800 > $("#chatbox").prop('scrollHeight')){
+		$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') });
+	}
+		}
 		stateOverview['channels'][stateOverview['currentChatId']] = obj.state;
 		getStateOfChat();
 		updateChannelsTag();
 		console.log("update()");
+			
 	});
 }
 
@@ -559,3 +567,25 @@ function addFormatting(i){
 	}
 	$("#chatMsgTextArea").val($("#chatMsgTextArea").val()+'['+letter+'][/'+letter+']').focus();
 }
+
+$("#submitColor").on('click', function(){
+	var c = $("#Ucolor").val();
+	$.post("modele/channelProcess.php", { function : "changeColor", newColor : c}, function(data){
+		console.log(data);
+		console.log("changeColor()");
+		$('#modalSettings').modal('toggle');
+	});
+ });
+
+$("#submitUserPassword").on('click', function(){
+	if($("#newUserPassword").val() != $("#verifyNewUserPassword").val()){
+		$("#errpw").html("New password does not match");
+	}
+	else{
+		$.post("modele/channelProcess.php", { function : "changePw", oldpw : $("#previousUserPassword").val(), newpw : $("#verifyNewUserPassword").val()}, function(data){
+			console.log(data);
+		});
+	}
+ });
+
+

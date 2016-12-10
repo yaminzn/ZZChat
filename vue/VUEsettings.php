@@ -8,15 +8,17 @@
 				<ul class="nav nav-tabs">
 					<li class="nav-item "><a class="nav-link active" data-toggle="tab" href="#home">Home</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Password</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Channels</a></li>
-					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">Account</a></li>
+				<!--	<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Channels</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">Account</a></li> -->
 				</ul>
 				<div class="tab-content">
 					<div id="home" class="tab-pane active">
 						<br>
 						<div class="container">
-							Username color : <input type="color" name="favcolor" value=<?php echo "\"".$_SESSION['color']."\""; ?>>
+							Username color : <input type="color" id="Ucolor" name="favcolor" value=<?php echo "\"".$_SESSION['color']."\""; ?>>
 						</div>
+						<br>
+						<button id="submitColor" type="submit" class="btn btn-primary">Save</button>
 					</div>
 					<div id="menu1" class="tab-pane">
 						<div class="container">
@@ -37,8 +39,10 @@
 								</div>
 								<button id="submitUserPassword" type="submit" class="btn btn-primary">Set password</button>
 							</form>
+							<span id="errpw"></span>
 						</div>
 					</div>
+					<!--
 					<div id="menu2" class="tab-pane">
 						<br>
 						<div class="row">
@@ -85,6 +89,7 @@
 						</div>
 
 					</div>
+					
 					<div id="menu3" class="tab-pane">
 						<div class="container">
 							<br>
@@ -99,6 +104,7 @@
 							</form>
 						</div>
 					</div>
+					-->
 				</div>
 			</div>
 		</div>

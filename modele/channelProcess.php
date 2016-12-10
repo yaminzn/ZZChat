@@ -10,6 +10,20 @@
 	$res = 0;
 	
 	switch($function) {
+		case('changePw'):
+			if(!isset($_POST['newColor'])) break;
+			changeUsernamePassword($_SESSION['userId'], $_POST['oldpw'], $_POST['newpw']);
+
+			$res = 1;
+		break;
+
+		case('changeColor'):
+			if(!isset($_POST['newColor'])) break;
+			changeUsernameColor($_SESSION['userId'], $_POST['newColor']);
+
+			$res = 1;
+		break;
+
 		case('changeChannelName'):
 			if(!isset($_POST['newChannelName'])) break;
 			changeChannelName($_POST['newChannelName']);

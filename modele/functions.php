@@ -1,4 +1,23 @@
 <?php
+
+	include 'return.php';
+
+function changeUsernameColor($userId, $color){
+	$tab = returnUsersInfo();
+
+	$tab['users'][$userId]['color'] = $color;
+
+	$fp = fopen ('../json/users.json','w'); 
+	fwrite($fp, json_encode($tab));
+	fclose($fp);
+
+	$_SESSION['color'] = $color;
+}
+
+function changeUsernamePassword($userId, $oldpw, $newpw){
+	
+}
+
 //Not all commands adds text
 function checkCommands($message){
 	$find = array('/^!cowsay\s(.*)$/', '/^!commands$/');
