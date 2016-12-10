@@ -14,6 +14,14 @@ if($_SESSION["loginstatus"] != 0){
 	exit();
 }
 
+if(!isset($_SESSION['lang'])){
+	include("lang/en-lang.php");
+	$_SESSION['lang'] = "en";
+}
+else{
+	include("lang/". $_SESSION['lang'] ."-lang.php");
+}
+
 include_once('controleur/CTRLindex.php');
 
 ?>
