@@ -209,14 +209,14 @@
 					<div class="container">
 						<br>
 							<form class="form-inline" action="javascript:void(0);">
+							<!--
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
 										<input type="text" class="form-control" id="searchUser" placeholder="Search for a user">
 									</div>
 								</div>
-							
-							<br>
+							-->
 							<br>
 							<div>
 								<ul id="addUsersList" class="list-group">

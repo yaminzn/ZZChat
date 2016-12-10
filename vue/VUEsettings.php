@@ -16,9 +16,9 @@
 						<br>
 						<div class="container">
 							Username color : <input type="color" id="Ucolor" name="favcolor" value=<?php echo "\"".$_SESSION['color']."\""; ?>>
+							<br><br>
+							<button id="submitColor" type="submit" class="btn btn-primary">Save</button>
 						</div>
-						<br>
-						<button id="submitColor" type="submit" class="btn btn-primary">Save</button>
 					</div>
 					<div id="menu1" class="tab-pane">
 						<div class="container">

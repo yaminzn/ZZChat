@@ -15,6 +15,7 @@
 		case('send'):
 			switch ($_POST['type']) {
 				case "text":
+					updateUserActivity();
 					if(empty($_POST['message'])){
 						break;
 					}
