@@ -21,13 +21,13 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $username; ?></a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSettings"><i class="fa fa-cogs" aria-hidden="true"></i> Settings</a>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalSettings"><i class="fa fa-cogs" aria-hidden="true"></i> <?php echo MENU_SETTINGS; ?></a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</a>
+							<a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i> <?php echo MENU_LOG_OUT; ?></a>
 							<?php if(isset($adminpanel)) echo $adminpanel; ?>
 						</div>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Create channel <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
+					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel"><?php echo CHANNEL_CREATE; ?> <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
 					<div class="container-fluid">
 
 						<?php 
@@ -51,23 +51,23 @@
 		</div>
 		<div class="col-md-10 no-padding-margin">
 			<nav class="navbar navbar-full navbar-light bg-faded">
-				<a id="roomName" class="navbar-brand" href="#">roomname</a>
+				<a id="roomName" class="navbar-brand" href="#"><?php echo MSG_ROOMNAME; ?></a>
 				<ul class="nav navbar-nav">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a href="#" class="dropdown-item" id="aAddUsers" data-toggle="modal" data-target="#modalAddUsers">Add
+							<a href="#" class="dropdown-item" id="aAddUsers" data-toggle="modal" data-target="#modalAddUsers"><?php echo CHAN_SETTINGS_ADD; ?>
 							</a>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalKick">Kick
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalKick"><?php echo CHAN_SETTINGS_KICK; ?>
   							</a>
-							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalRenameChannel">Rename channel
+							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalRenameChannel"><?php echo CHAN_SETTINGS_RN; ?>
 							</a>
-							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalChangeChannelDescription">Change description
+							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalChangeChannelDescription"><?php echo CHAN_SETTINGS_CHANGE_DESC; ?>
 							</a>
 							<?php if($_SESSION['currentChatId'] != 0) { ?>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLeave">Leave</a>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLeave"><?php echo CHAN_SETTINGS_QUIT; ?></a>
 							<?php } ?>
 						</div>
 					</li>
@@ -75,11 +75,11 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-							<a class="dropdown-item" href="emotes.php" target="_blank">Emotes
+							<a class="dropdown-item" href="emotes.php" target="_blank"><?php echo HELP_EMOTES; ?>
 							</a>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCommands">Chat commands
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCommands"><?php echo HELP_COMMANDS; ?>
 							</a>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalShortcuts">Shortcuts
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalShortcuts"><?php echo HELP_SHORTCUTS; ?>
 							</a>
 						</div>
 					</li>
@@ -90,7 +90,7 @@
 				<div class="col-md-9 no-padding-margin">
 					<div class="row no-padding-margin">
 						<div id="chatbox" class="chatboxDiv container-fluid">
-							Loading...
+							<?php echo MSG_LOADING; ?>...
 						</div>
 					</div>
 					<div class="row no-padding-margin">
@@ -115,7 +115,7 @@
 										<button type="button" class="btn btn-secondary emotesPO po"><i class="fa fa-smile-o" aria-hidden="true"></i></button>
 									</div>
 									<div class="pull-right">
-										<button type="button" id="sendMessageBtn" class="btn btn-sm btn-primary">Send</button>
+										<button type="button" id="sendMessageBtn" class="btn btn-sm btn-primary"><?php echo SEND_BUTTON; ?></button>
 									</div>
 								</div>
 
@@ -126,13 +126,13 @@
 				<div class="col-md-3">
 					<div class="row">
 					<div class="col-md-12">
-					<div id="channelDescription">Channel's description</div>
+					<div id="channelDescription"><?php echo MSG_CHAN_DESC_INFO; ?></div>
 					<br>
 					</div>
 					</div>
 					<div class="row">
 					<div class="col-md-12">
-					<div id="userlist">Users list</div>
+					<div id="userlist"><?php echo MSG_USER_LIST; ?></div>
 					</div>
 					</div>
 					
@@ -147,11 +147,11 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Commands</h4>
+						<h4 class="modal-title"><?php echo HELP_COMMANDS; ?></h4>
 					</div>
 					<div class="container">
 						<br>
-						!commands in chat to see all available commands
+						<?php echo CONTENT_COMMANDS_INFO; ?>
 						<br>
 						<br>
 					</div>
@@ -171,7 +171,7 @@
 						<br>
 						HOLD CTRL AND TYPE "WTF" FOR ℱ𝓪𝓷𝓬𝔂 𝓦𝓣ℱ
 						<br><br>
-						While in the typing area, use up and down arrow keys to navigate through all your typed messages!
+						<?php echo CONTENT_SHORT_INFO; ?>
 						<br><br>
 					</div>
 				</div>
@@ -184,15 +184,15 @@
  				<div class="modal-content">
  					<div class="modal-header">
  						<button type="button" class="close" data-dismiss="modal">&times;</button>
- 						<h4 class="modal-title">Kick people</h4>
+ 						<h4 class="modal-title"><?php echo KICK_TITLE; ?></h4>
  					</div>
  					<div class="container">
  
  						<div class="list-user"></div>
  
  						<br>
-						<button type="button" class="btn btn-success btn-block" data-dismiss="modal">Cancel</button>
- 						<button id="submitqsfqsfqsfqsfqqfqqsf" type="button" class="btn btn-danger btn-block">Confirm</button>
+						<button type="button" class="btn btn-success btn-block" data-dismiss="modal"><?php echo BTN_CANCEL; ?></button>
+ 						<button id="submitqsfqsfqsfqsfqqfqqsf" type="button" class="btn btn-danger btn-block"><?php echo BTN_CONFIRM; ?></button>
  						<br>
  					</div>
  				</div>
@@ -204,7 +204,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add users</h4>
+						<h4 class="modal-title"><?php echo ADD_TITLE; ?></h4>
 					</div>
 					<div class="container">
 						<br>
@@ -212,7 +212,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
-										<input type="text" class="form-control" id="searchUser" placeholder="Search for a user">
+										<input type="text" class="form-control" id="searchUser" placeholder="<?php echo SEARCH_INFO; ?>">
 									</div>
 								</div>
 							
@@ -223,7 +223,7 @@
 								</ul>
 							</div>
 							<br>
-							<button type="submit" id="submitBtnAddUsers" class="btn btn-primary">Add</button>
+							<button type="submit" id="submitBtnAddUsers" class="btn btn-primary"><?php echo CHAN_SETTINGS_ADD; ?></button>
 							</form>
 						<br>
 					</div>
@@ -237,12 +237,12 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Are you sure you want to leave?</h4>
+						<h4 class="modal-title"><?php echo CHAN_LEAVE_CONFIRM; ?></h4>
 					</div>
 					<div class="container">
 						<br>
-						<button type="button" class="btn btn-success btn-block" data-dismiss="modal">Cancel</button>
-						<button id="submitBtnLeave" type="button" class="btn btn-danger btn-block">Confirm</button>
+						<button type="button" class="btn btn-success btn-block" data-dismiss="modal"><?php echo BTN_CANCEL; ?></button>
+						<button id="submitBtnLeave" type="button" class="btn btn-danger btn-block"><?php echo BTN_CONFIRM; ?></button>
 						<br>
 					</div>
 				</div>
@@ -256,20 +256,20 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Rename channel</h4>
+						<h4 class="modal-title"><?php echo CHAN_SETTINGS_RN; ?></h4>
 					</div>
 					<div class="container">
 						<br>
 						<form id="formRenameChannel" action="javascript:void(0);">
 							<div class="form-group">
-								<label for="previousChannelName">Previous name</label>
+								<label for="previousChannelName"><?php echo PREV; ?></label>
 								<input type="text" class="form-control" id="previousChannelName" disabled>
 							</div>
 							<div class="form-group">
-								<label for="newChannelName">New name</label>
+								<label for="newChannelName"><?php echo NEW; ?></label>
 								<input type="text" class="form-control" name="newChannelName" id="newChannelName" required autofocus>
 							</div>
-							<button id="submitBtnNewChannelName" type="submit" class="btn btn-primary">Save changes</button>
+							<button id="submitBtnNewChannelName" type="submit" class="btn btn-primary"><?php echo BTN_SAVE; ?></button>
 						</form>
 						<br>
 					</div>
@@ -282,20 +282,20 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Change description</h4>
+						<h4 class="modal-title"><?php echo CHAN_SETTINGS_CHANGE_DESC; ?></h4>
 					</div>
 					<div class="container">
 						<br />
 						<form id="formChangeChannelDescription" action="javascript:void(0);">
 							<div class="form-group">
-								<label for="previousChannelDescription">Previous description</label>
+								<label for="previousChannelDescription"><?php echo PREV; ?></label>
 								<div id="previousChannelDescription"></div>
 							</div>
 							<div class="form-group">
-								<label for="newChannelDescription">New description</label>
+								<label for="newChannelDescription"><?php echo NEW; ?></label>
 								<textarea class="form-control" name="newChannelDescription" id="newChannelDescription" rows="5" autofocus></textarea>
 							</div>
-							<button id="submitBtnChangeChannelDescription" type="submit" class="btn btn-primary">Save changes</button>
+							<button id="submitBtnChangeChannelDescription" type="submit" class="btn btn-primary"><?php echo BTN_SAVE; ?></button>
 						</form>
 						<br />
 					</div>
@@ -309,20 +309,20 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Create channel</h4>
+						<h4 class="modal-title"><?php echo CHANNEL_CREATE; ?></h4>
 					</div>
 					<div class="container">
 						<br />
 						<form id="formCreateChannel" action="javascript:void(0);">
 							<div class="form-group">
-								<label for="createChannelName">Name</label>
+								<label for="createChannelName"><?php echo NAME; ?></label>
 								<input type="text" class="form-control" name="createChannelName" id="createChannelName" required autofocus>
 							</div>
 							<div class="form-group">
-								<label for="createChannelDescription">Description</label>
+								<label for="createChannelDescription"><?php echo DESC; ?></label>
 								<textarea class="form-control" name="createChannelDescription" id="createChannelDescription" rows="5"></textarea>
 							</div>
-							<button id="submitBtnCreateChannel" type="submit" class="btn btn-primary">Create</button>
+							<button id="submitBtnCreateChannel" type="submit" class="btn btn-primary"><?php echo CREATE; ?></button>
 						</form> 
 						<br />
 					</div>
@@ -336,12 +336,12 @@
 					<div class="container">
 						<div class="input-group">
 							<input type="text" id="search" placeholder="Search for gifs" class="form-control" autofocus>
-							<span class="input-group-btn"><button class="btn btn-primary" type="button" id="gifSearchBtn">Go!</button></span>
+							<span class="input-group-btn"><button class="btn btn-primary" type="button" id="gifSearchBtn"><?php echo GO; ?></button></span>
 						</div>
 					</div>
 				</div>
 				<div id="gifRes">
-				<br><br><br><br><br><br>Pss, wanna buy some gifs?<br>
+				<br><br><br><br><br><br><?php echo GIF_DESC; ?><br>
 					┴┬┴┤( ͡° ͜ʖ├┬┴┬ 
 				</div>
 			</div>
@@ -350,9 +350,9 @@
 		<div id="emotes_popover_content_wrapper">
 			<div class="emotesWrapper">
 				<ul class="nav nav-tabs">
-					<li class="nav-item"><a class="nav-link active" id="a_emotes_global" data-toggle="tab" href="#emotes_global">Global</a></li>
-					<li class="nav-item"><a class="nav-link" id="a_emotes_bttv" data-toggle="tab" href="#emotes_bttv">BTTV</a></li>
-					<li class="nav-item"><a class="nav-link" id="a_emotes_custom" data-toggle="tab" href="#emotes_custom">Custom</a></li>
+					<li class="nav-item"><a class="nav-link active" id="a_emotes_global" data-toggle="tab" href="#emotes_global"><?php echo EMOTE_GLOBAL; ?></a></li>
+					<li class="nav-item"><a class="nav-link" id="a_emotes_bttv" data-toggle="tab" href="#emotes_bttv"><?php echo EMOTE_BTTV; ?></a></li>
+					<li class="nav-item"><a class="nav-link" id="a_emotes_custom" data-toggle="tab" href="#emotes_custom"><?php echo EMOTE_CUSTOM; ?></a></li>
 				</ul>
 				<div class="tab-content">
 					<div id="emotes_global" class="tab-pane active">
@@ -371,10 +371,10 @@
 					<div class="btn-group btn-sm" role="group" aria-label="First group">
 						<button id="addFileUpload" type="button" class="btn btn-secondary">
 							<label id="labelfile-upload" for="file-upload" style="margin: 0;">
-								Add files
+								<?php echo FILE_ADD; ?>
 							</label>
 						</button>
-						<button id="upload" type="button" class="btn btn-secondary">Upload</button>
+						<button id="upload" type="button" class="btn btn-secondary"><?php echo FILE_UPLOAD; ?></button>
 					</div>
 				</div>
 				<div id="fileList">
