@@ -19,11 +19,15 @@
 	
 </head>
 <body>
-	<?php include("lang/en-lang.php"); ?>
-
 	<div class="container" id="cadre" lang="<?php echo LANG; ?>">
 		<h1>
 			<p class="text-center">ZZ Chat</p>
+
+			<ul class="lang-choice">
+				<li><img src="img/drapeaufr.png" title="Site en français" value="fr" /></li>
+				<li><img src="img/anglais.png" title="Site en anglais" value="en" /></li>
+			</ul>
+
 		</h1>
 		<br>
 		
@@ -133,6 +137,13 @@
 			
 			$("#form-up").submit(function(){
 				newAccountForm();
+			});
+			
+			$("ul.lang-choice li").on("click", "img", function(){
+				let fic = "lang/" + $(this).attr("value") + "-lang.php";
+				$.get(fic, function(){
+					location.reload();
+				});
 			});
 		</script>
 	</body>
