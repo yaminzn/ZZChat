@@ -1,6 +1,7 @@
 <?php
 
 define("LANG", "en");
+$_SESSION['lang'] = LANG;
 
 /* Page d'accueil -- index.php */
 
