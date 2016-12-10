@@ -43,6 +43,9 @@
 							}
 						?>
 					</div>
+					<div>
+					If chat doesn't update => F5
+					</div>
 					<?php print_r($_SESSION); 
 
 					?>
