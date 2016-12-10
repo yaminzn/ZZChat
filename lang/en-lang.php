@@ -45,5 +45,10 @@ define("CHAN_SETTINGS_RN", "Rename Channel");
 define("CHAN_SETTINGS_CHANGE_DESC", "Change description");
 define("CHAN_SETTINGS_QUIT", "Leave");
 
+/* Settings */
+define("SETTINGS_HOME", "General");
+define("SETTINGS_PW", "Password");
+define("SETTINGS_LANG", "Language");
+
 
 ?>

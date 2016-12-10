@@ -370,7 +370,7 @@
 				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 					<div class="btn-group btn-sm" role="group" aria-label="First group">
 						<button id="addFileUpload" type="button" class="btn btn-secondary">
-							<label id="labelfile-upload" for="file-upload" style="margin: 0 0 0 0;">
+							<label id="labelfile-upload" for="file-upload" style="margin: 0;">
 								Add files
 							</label>
 						</button>
@@ -393,10 +393,11 @@
 		<script src="js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript">
 
-			$("ul.lang-choice li").on("click", "img", function(){
-				let fic = "lang/" + $(this).attr("value") + "-lang.php";
+			$('#changeLang').submit(function(){
+				let fic = "lang/" + $('#changeLang #lang').val() + "-lang.php";
 				$.get(fic, function(){
 					location.reload();
+				});
 			});
 
 

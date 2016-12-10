@@ -8,6 +8,7 @@
 				<ul class="nav nav-tabs">
 					<li class="nav-item "><a class="nav-link active" data-toggle="tab" href="#home">Home</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Password</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#lang">Langues</a></li>
 				<!--	<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Channels</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">Account</a></li> -->
 				</ul>
@@ -18,12 +19,6 @@
 							Username color : <input type="color" id="Ucolor" name="favcolor" value=<?php echo "\"".$_SESSION['color']."\""; ?>>
 						</div>
 						<br>
-						<!-- Gestion des langues -->
-						<ul class="lang-choice">
-							<li><img src="img/drapeaufr.png" title="Site en français" value="fr" /></li>
-							<li><img src="img/anglais.png" title="Site en anglais" value="en" /></li>
-						</ul>
-
 						<button id="submitColor" type="submit" class="btn btn-primary">Save</button>
 					</div>
 					<div id="menu1" class="tab-pane">
@@ -48,6 +43,22 @@
 							<span id="errpw"></span>
 						</div>
 					</div>
+
+					<div id="menu1" class="tab-pane">
+						<div class="container">
+							<br>
+							<h3>Change Language</h3>
+							<!-- Gestion des langues -->
+							<form id="changeLang" action="javascript:void(0);">
+								<select id="lang">
+									<option value="en">English</option>
+									<option value="fr">French</option>
+								</select>
+								<button id="submitLang" type="submit" class="btn btn-primary">Save</button>
+							</form>
+						</div>
+					</div>
+
 					<!--
 					<div id="menu2" class="tab-pane">
 						<br>

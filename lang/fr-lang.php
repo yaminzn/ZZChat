@@ -45,4 +45,9 @@ define("CHAN_SETTINGS_RN", "Renommer canal");
 define("CHAN_SETTINGS_CHANGE_DESC", "Changer description");
 define("CHAN_SETTINGS_QUIT", "Quitter");
 
+/* Settings */
+define("SETTINGS_HOME", "Général");
+define("SETTINGS_PW", "Mot de passe");
+define("SETTINGS_LANG", "Langue");
+
 ?>
