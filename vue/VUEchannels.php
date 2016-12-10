@@ -43,12 +43,6 @@
 							}
 						?>
 					</div>
-					<div>
-					If chat doesn't update => F5
-					</div>
-					<?php print_r($_SESSION); 
-
-					?>
 				</ul>
 			</div>
 		</div>
@@ -87,6 +81,12 @@
 						</div>
 					</li>
 				</ul>
+
+
+				<span class="navbar-text pull-xs-right text-muted" style="font-size: 1.25rem; opacity: 0.3;">
+					If chat is bugged, use F5
+				</span>
+
 			</nav>
 
 			<div class="row no-padding-margin">
