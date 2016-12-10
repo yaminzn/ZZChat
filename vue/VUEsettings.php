@@ -17,9 +17,10 @@
 						<br>
 						<div class="container">
 							<?php echo SET_COLOR_MSG; ?> : <input type="color" id="Ucolor" name="favcolor" value=<?php echo "\"".$_SESSION['color']."\""; ?>>
-						</div>
-						<br>
+													<br>
 						<button id="submitColor" type="submit" class="btn btn-primary"><?php echo BTN_SAVE; ?></button>
+						</div>
+
 					</div>
 					<div id="menu1" class="tab-pane">
 						<div class="container">
@@ -54,6 +55,7 @@
 									<option value="en"><?php echo SET_LANG_EN; ?></option>
 									<option value="fr"><?php echo SET_LANG_FR; ?></option>
 								</select>
+								<br><br>
 								<button id="submitLang" type="submit" class="btn btn-primary"><?php echo BTN_SAVE; ?></button>
 							</form>
 						</div>

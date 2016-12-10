@@ -216,7 +216,7 @@
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
-										<input type="text" class="form-control" id="searchUser" placeholder="<?php echo SEARCH_INFO; ?>">
+										<input type="text" class="form-control" id="searchUser" placeholder="<?php // echo SEARCH_INFO; ?>">
 									</div>
 								</div>
 							-->
@@ -269,7 +269,7 @@
 								<input type="text" class="form-control" id="previousChannelName" disabled>
 							</div>
 							<div class="form-group">
-								<label for="newChannelName"><?php echo NEW; ?></label>
+								<label for="newChannelName"><?php echo NEWW; ?></label>
 								<input type="text" class="form-control" name="newChannelName" id="newChannelName" required autofocus>
 							</div>
 							<button id="submitBtnNewChannelName" type="submit" class="btn btn-primary"><?php echo BTN_SAVE; ?></button>
@@ -295,7 +295,7 @@
 								<div id="previousChannelDescription"></div>
 							</div>
 							<div class="form-group">
-								<label for="newChannelDescription"><?php echo NEW; ?></label>
+								<label for="newChannelDescription"><?php echo NEWW; ?></label>
 								<textarea class="form-control" name="newChannelDescription" id="newChannelDescription" rows="5" autofocus></textarea>
 							</div>
 							<button id="submitBtnChangeChannelDescription" type="submit" class="btn btn-primary"><?php echo BTN_SAVE; ?></button>

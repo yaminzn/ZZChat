@@ -67,7 +67,7 @@ define("ADD_TITLE", "Add users");
 define("SEARCH_INFO", "Search for a user");
 
 define("PREV", "Previous");
-define("NEW", "New");
+define("NEWW", "New");
 
 /* Settings */
 define("SETTINGS_HOME", "General");
