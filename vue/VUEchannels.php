@@ -29,19 +29,23 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Create channel <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
 					<div class="container-fluid">
+
 						<?php 
+
 							foreach($channelsList as $key=>$value) {
 								//echo '<li class="nav-item"><a class="nav-link" href="channels/'.$key.'">'.$value['name'].'</a></li>';
 								  echo'<a href="channels/'.$value['id'].'" class="list-group-item">
 		  	<div class="channelList">
-		    	<span '; ?> <?php if($key == $_SESSION['currentChatId']) echo 'id="currentChannel"'; ?> <?php echo 'class="channelName">'.$value['name'].'</span>
+		    	<span '; ?> <?php if($value['id'] == $_SESSION['currentChatId']) echo 'id="currentChannel"'; ?> <?php echo 'class="channelName">'.$value['name'].'</span>
 		    	<span class="tag tag-info pull-xs-right"></span>
 		  	</div>
 		  </a>';
 							}
 						?>
 					</div>
-					<?php print_r($_SESSION); ?>
+					<?php print_r($_SESSION); 
+
+					?>
 				</ul>
 			</div>
 		</div>
@@ -67,16 +71,13 @@
 							<?php } ?>
 						</div>
 					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="#"><i class="fa fa-bell" aria-hidden="true"></i></a>
-					</li>						
+						
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
 							<a class="dropdown-item" href="emotes.php" target="_blank">Emotes
 							</a>
-							<a class="dropdown-item" href="#">Chat commands
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalCommands">Chat commands
 							</a>
 							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalShortcuts">Shortcuts
 							</a>
@@ -141,6 +142,24 @@
 
 
 		<!-- MODAL -->
+		<div class="modal fade" id="modalCommands" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Commands</h4>
+					</div>
+					<div class="container">
+						<br>
+						!commands in chat to see all available commands
+						<br>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<div class="modal fade" id="modalShortcuts" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -151,8 +170,9 @@
 					<div class="container">
 						<br>
 						HOLD CTRL AND TYPE "WTF" FOR ℱ𝓪𝓷𝓬𝔂 𝓦𝓣ℱ
-						<br>
-						<br>
+						<br><br>
+						While in the typing area, use up and down arrow keys to navigate through all your typed messages!
+						<br><br>
 					</div>
 				</div>
 			</div>
