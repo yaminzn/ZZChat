@@ -392,6 +392,14 @@
 		<script src="js/chat.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script type="text/javascript" language="javascript">
+
+			$("ul.lang-choice li").on("click", "img", function(){
+				let fic = "lang/" + $(this).attr("value") + "-lang.php";
+				$.get(fic, function(){
+					location.reload();
+			});
+
+
 			$(document).ready(function(){
 				$("#chatbox").empty();
 

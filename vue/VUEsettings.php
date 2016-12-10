@@ -18,6 +18,12 @@
 							Username color : <input type="color" id="Ucolor" name="favcolor" value=<?php echo "\"".$_SESSION['color']."\""; ?>>
 						</div>
 						<br>
+						<!-- Gestion des langues -->
+						<ul class="lang-choice">
+							<li><img src="img/drapeaufr.png" title="Site en français" value="fr" /></li>
+							<li><img src="img/anglais.png" title="Site en anglais" value="en" /></li>
+						</ul>
+
 						<button id="submitColor" type="submit" class="btn btn-primary">Save</button>
 					</div>
 					<div id="menu1" class="tab-pane">
