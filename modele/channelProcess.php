@@ -11,10 +11,7 @@
 	
 	switch($function) {
 		case('changePw'):
-			if(!isset($_POST['newColor'])) break;
-			changeUsernamePassword($_SESSION['userId'], $_POST['oldpw'], $_POST['newpw']);
-
-			$res = 1;
+			$res = changeUsernamePassword($_SESSION['userId'], $_POST['oldpw'], $_POST['newpw']);
 		break;
 
 		case('changeColor'):

@@ -583,6 +583,12 @@ $("#submitUserPassword").on('click', function(){
 	}
 	else{
 		$.post("modele/channelProcess.php", { function : "changePw", oldpw : $("#previousUserPassword").val(), newpw : $("#verifyNewUserPassword").val()}, function(data){
+			if(data != 1){
+				$("#errpw").html("Wrong old password");
+			}
+			else{
+				$("#errpw").html("Success!");
+			}
 			console.log(data);
 		});
 	}

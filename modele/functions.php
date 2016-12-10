@@ -15,7 +15,20 @@ function changeUsernameColor($userId, $color){
 }
 
 function changeUsernamePassword($userId, $oldpw, $newpw){
-	
+	$res = 0;
+	$tab = returnUsersInfo();
+
+	if($tab['users'][$userId]['password'] == sha1($oldpw))
+	{
+		$tab['users'][$userId]['password'] = sha1($newpw);
+		$fp = fopen ('../json/users.json','w'); 
+		fwrite($fp, json_encode($tab));
+		fclose($fp);
+
+		$res = 1;
+	}
+
+	return $res;
 }
 
 //Not all commands adds text
@@ -160,9 +173,7 @@ function createChannelJSON($channelId){
 	//Régler les permissions
 	chmod($filename, 0777);
 
-	//Create files folder
-	if(!file_exists("../files/".$channelId))
-	mkdir("../files/".$channelId, 0777);
+
 
 	//Message lors de la création, à changer
 	$tab['message'] =  array(array("username" => "Chatbot", "type" => "text", "text" => "Start chatting by inviting your friends!", "time" => date('H:i'), "color" => "#cc0000"));

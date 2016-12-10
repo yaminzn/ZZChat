@@ -43,6 +43,9 @@
 							}
 						?>
 					</div>
+					<div>
+					If chat doesn't update => F5
+					</div>
 					<?php print_r($_SESSION); 
 
 					?>
@@ -209,14 +212,14 @@
 					<div class="container">
 						<br>
 							<form class="form-inline" action="javascript:void(0);">
+							<!--
 								<div class="form-group">
 									<div class="input-group">
 										<div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
 										<input type="text" class="form-control" id="searchUser" placeholder="<?php echo SEARCH_INFO; ?>">
 									</div>
 								</div>
-							
-							<br>
+							-->
 							<br>
 							<div>
 								<ul id="addUsersList" class="list-group">

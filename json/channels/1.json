@@ -1,16 +1,1 @@
-{
-	"message":[ 
-	{
-		"username": "Pikachu",
-		"text": "This is an example of JSON",
-		"time": "04:41",
-		"color": "red"
-	},
-	{
-		"username": "Mao",
-		"text": "LUL",
-		"time": "04:41",
-		"color": "blue"
-	}
-]
-}
+{"message":[{"username":"Pikachu","text":"This is an example of JSON","time":"04:41","color":"red"},{"username":"Mao","text":"LUL","time":"04:41","color":"blue"},{"type":"text","time":"19:02","username":"Chatbot","color":"#cc0000","text":"[b]LEL[\/b] added [b]david[\/b] !"}]}
