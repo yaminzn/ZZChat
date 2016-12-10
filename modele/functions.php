@@ -15,7 +15,20 @@ function changeUsernameColor($userId, $color){
 }
 
 function changeUsernamePassword($userId, $oldpw, $newpw){
-	
+	$res = 0;
+	$tab = returnUsersInfo();
+
+	if($tab['users'][$userId]['password'] == sha1($oldpw))
+	{
+		$tab['users'][$userId]['password'] = sha1($newpw);
+		$fp = fopen ('../json/users.json','w'); 
+		fwrite($fp, json_encode($tab));
+		fclose($fp);
+
+		$res = 1;
+	}
+
+	return $res;
 }
 
 //Not all commands adds text

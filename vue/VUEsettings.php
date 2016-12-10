@@ -28,15 +28,15 @@
 							<form id="formChangeUserPassword" action="javascript:void(0);">
 								<div class="form-group">
 									<label for="previousUserPassword">Previous password</label>
-									<input type="text" class="form-control" id="previousUserPassword" required>
+									<input type="password" class="form-control" id="previousUserPassword" required>
 								</div>
 								<div class="form-group">
 									<label for="newUserPassword">New password</label>
-									<input type="text" class="form-control" name="newUserPassword" id="newUserPassword" required>
+									<input type="password" class="form-control" name="newUserPassword" id="newUserPassword" required>
 								</div>
 								<div class="form-group">
 									<label for="verifyNewUserPassword">Verify password</label>
-									<input type="text" class="form-control" name="verifyNewUserPassword" id="verifyNewUserPassword" required>
+									<input type="password" class="form-control" name="verifyNewUserPassword" id="verifyNewUserPassword" required>
 								</div>
 								<button id="submitUserPassword" type="submit" class="btn btn-primary">Set password</button>
 							</form>
@@ -44,7 +44,7 @@
 						</div>
 					</div>
 
-					<div id="menu1" class="tab-pane">
+					<div id="lang" class="tab-pane">
 						<div class="container">
 							<br>
 							<h3>Change Language</h3>

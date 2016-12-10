@@ -27,7 +27,7 @@
 							<?php if(isset($adminpanel)) echo $adminpanel; ?>
 						</div>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Create channel <i class="fa fa-plus-square-o" aria-hidden="true"></i></a></li>
+					<li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#modalcreateChannel">Create channel <i class="fa fa-plus-square" aria-hidden="true"></i></a></li>
 					<div class="container-fluid">
 
 						<?php 
