@@ -10,7 +10,7 @@ define("INPUT_PASSWORD_DESC", "Password");
 
 define("CHECKBOX_TEXT", "Remember me");
 define("SIGN_IN_TEXT", "Sign in");
-define("CREATE_ACC_TEXT", "Create my account :D");
+define("CREATE_ACC_TEXT", "Create my account");
 
 define("ACCOUNT_CREATION", "Account creation");
 define("SIGN_UP_TEXT", "Sign up");
