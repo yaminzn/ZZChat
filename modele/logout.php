@@ -1,5 +1,5 @@
 <?php
-
+//Destroy everything
 if(isset($_SESSION)) {
 	setcookie("id", "", time() - 3600);
 	setcookie("token", "", time() - 3600);

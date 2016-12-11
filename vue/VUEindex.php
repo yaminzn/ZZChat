@@ -89,7 +89,6 @@
 						case 0:
 							$("#error").html(err_msg_front + "alert-danger" + err_msg_mid + "<?php echo ERR_WRONG_LOGIN; ?>" + err_msg_back);
 							break;
-						default:
 					}
 				});
 				pw.val("");

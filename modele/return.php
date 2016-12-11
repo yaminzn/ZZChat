@@ -1,5 +1,9 @@
 <?php
 
+//Almost all functions that return a value
+//Some others are in functions.php
+
+//return the user id with a username in parameter
 function getUserId($username){
 	$tab = returnUsersInfo();
 	$size = count($tab['users']);
@@ -11,6 +15,7 @@ function getUserId($username){
 	return -1;
 }
 
+//return the entire channel file
 function returnChannelsInfo(){
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
@@ -18,6 +23,7 @@ function returnChannelsInfo(){
 	return $json;
 }
 
+//return the entire users file
 function returnUsersInfo(){
 	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
@@ -25,7 +31,7 @@ function returnUsersInfo(){
 	return $json;
 }
 
-//Renvoie les id des chats de l'id de l'utilisateur en paramètre
+//Return user channelIdList
 function returnUserChannelIdList($userId){
 	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
@@ -33,7 +39,7 @@ function returnUserChannelIdList($userId){
 	return $json['users'][$_SESSION['userId']]['channelIdList'];
 }
 
-//Retourne le state de l'id du chat en paramètre
+//Return the specified chat state
 function returnGetState($chatId){
 	$str = file_get_contents("../json/channels/".$chatId.".json");
 	$json = json_decode($str, true);
@@ -41,7 +47,7 @@ function returnGetState($chatId){
 	return count($json['message']);
 }
 
-/* Retourne les username avec la couleur associé de la liste d'id + une colonne online */
+//Return an array with the username color, username and online value(0 or 1)
 function returnChannelOnlineUsers($idList){
 	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
@@ -61,8 +67,6 @@ function returnChannelOnlineUsers($idList){
 		*	User is online if he was active within the last 5 minutes
 		*/	
 		for($i=0;$i<count($json2['lastactivity']);$i++){
-		//	echo $json2['lastactivity'][$i]['userId']." - ".$value."<br>";
-			
 			if($json2['lastactivity'][$i]['userId'] == $value){
 				if($time - 300 < $json2['lastactivity'][$i]['lasttime']){
 					$online = 1;
@@ -75,7 +79,7 @@ function returnChannelOnlineUsers($idList){
 	return $tab;
 }
 
-/* Renvoie les id des utilisateurs dans le chat d'id en argument */
+//return the users id in the specified channel
 function returnChannelUserIdList($id)
 {
 	$str = file_get_contents("../json/channel.json");
@@ -84,7 +88,7 @@ function returnChannelUserIdList($id)
 	return $json['channel'][$id]['userIdList'];
 }
 
-/* Génère la balise pour avoir une icone d'onglet avec une image aléatoire */
+//Generate a random tab icon HTML code
 function randomIcon(){
 	$str = file_get_contents("json/emotes/twitchemotes.json");
 	$json = json_decode($str, true);
@@ -92,7 +96,8 @@ function randomIcon(){
 	return '<link rel="icon" type="image/png" href="https://static-cdn.jtvnw.net/emoticons/v1/'.$json['emotes'][array_rand($json['emotes'])]['image_id'].'/1.0" />';
 }
 
-/* Vérifie si l'utilisateur est autorisé d'acceder à la channel d'id en paramètre */
+
+//Check if the users belongs to the specified chat
 function checkAuthorization($id){
 	$userChannelsIdList = getUserChannelsIdList($_SESSION["userId"]);
 	$res = 0;
@@ -102,7 +107,7 @@ function checkAuthorization($id){
 	return $res;
 }
 
-/* Retourne la liste des id des utilisateurs dans la channel d'id en paramètre */
+//Return the chat id list for a specified user
 function getUserChannelsIdList($id){
 	$str = file_get_contents("json/users.json");
 	$json = json_decode($str, true);
@@ -110,7 +115,7 @@ function getUserChannelsIdList($id){
 	return $json['users'][$id]['channelIdList'];
 }
 
-/* Retourne les info complète sur les utilisateurs de la liste d'id */
+//return an array of channel information for each userId in the list
 function getUserChannelsList($idList){
 	$str = file_get_contents("json/channel.json");
 	$json = json_decode($str, true);
@@ -123,11 +128,10 @@ function getUserChannelsList($idList){
 	return $tab;
 }
 
-/* Convertie les emotes en balises images */
+//Transform all emotes in images
 function textToEmote($string){
 	$text = $string;
 
-	//Twitch global emotes + certain subscriber emotes
 	$str = file_get_contents("../json/emotes/twitchemotes.json");
 	$json = json_decode($str, true);
 

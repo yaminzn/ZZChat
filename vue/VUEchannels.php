@@ -54,10 +54,12 @@
 						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<?php if($_SESSION['currentChatId'] != 0){ ?>
 							<a href="#" class="dropdown-item" id="aAddUsers" data-toggle="modal" data-target="#modalAddUsers"><?php echo CHAN_SETTINGS_ADD; ?>
 							</a>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalKick"><?php echo CHAN_SETTINGS_KICK; ?>
+							<a class="dropdown-item" href="#" id="kKickUsers" data-toggle="modal" data-target="#modalKick"><?php echo CHAN_SETTINGS_KICK; ?>
   							</a>
+  							<?php } ?>
 							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalRenameChannel"><?php echo CHAN_SETTINGS_RN; ?>
 							</a>
 							<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalChangeChannelDescription"><?php echo CHAN_SETTINGS_CHANGE_DESC; ?>
@@ -190,13 +192,25 @@
  						<h4 class="modal-title"><?php echo KICK_TITLE; ?></h4>
  					</div>
  					<div class="container">
- 
- 						<div class="list-user"></div>
- 
  						<br>
-						<button type="button" class="btn btn-success btn-block" data-dismiss="modal"><?php echo BTN_CANCEL; ?></button>
- 						<button id="submitqsfqsfqsfqsfqqfqqsf" type="button" class="btn btn-danger btn-block"><?php echo BTN_CONFIRM; ?></button>
- 						<br>
+ 						<form class="form-inline" action="javascript:void(0);">
+							<!--
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+										<input type="text" class="form-control" id="searchUser" placeholder="<?php // echo SEARCH_INFO; ?>">
+									</div>
+								</div>
+							-->
+							<br>
+							<div>
+								<ul id="kickUsersList" class="list-group">
+								</ul>
+							</div>
+							<br>
+							<button type="submit" id="submitBtnKickUsers" class="btn btn-primary">Kick</button>
+						</form>
+						<br>
  					</div>
  				</div>
  			</div>

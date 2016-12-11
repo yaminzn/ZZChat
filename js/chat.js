@@ -1,5 +1,6 @@
 /******************************************************************************* Right side *******************************************************************************/
 
+//Load the online user list
 function loadUsersList() {
 	$.post("modele/online.php", function(data){
 		var obj = jQuery.parseJSON(data);
@@ -20,6 +21,38 @@ function loadUsersList() {
 }
 
 /******************************************************************************* Navbar buttons *******************************************************************************/
+
+//Load the kick list
+$("#kKickUsers").click(function() {
+	$.post("modele/online.php", function(data){
+		var obj = jQuery.parseJSON(data);
+		$("#kickUsersList").html('');
+		if(obj.length != 0){
+			$.each(obj, function( index, value ) {
+				$("#kickUsersList").append('<li class="list-group-item"><label class="form-check-inline"><input class="form-check-input" value="'+value.username+'" type="checkbox">\t'+value.username+'</label></li>');
+			});
+		}
+		else{
+			$("#kickUsersList").html('You are alone!');
+		}		
+	});
+});
+
+//Send the kick query
+$("#submitBtnKickUsers").click(function() {
+	var selected = [];
+	$('#kickUsersList input:checked').each(function() {
+	    selected.push($(this).attr('value'));
+	});
+	
+	$.post("modele/channelProcess.php", {function : "kickUsers", list : selected}, function(data){
+		console.log(data);
+		loadUsersList();
+		location.reload();
+	});
+});
+
+//Load the add list
 $("#aAddUsers").click(function() {
 	$.post("modele/channelProcess.php", {function : "loadAddUsersList"}, function(data){
 		console.log('loadAddUsersList()');
@@ -36,6 +69,7 @@ $("#aAddUsers").click(function() {
 	});
 });
 
+//Send the add query
 $("#submitBtnAddUsers").click(function() {
 	var selected = [];
 	$('#addUsersList input:checked').each(function() {
@@ -43,45 +77,48 @@ $("#submitBtnAddUsers").click(function() {
 	});
 	$.post("modele/channelProcess.php", {function : "addUsers", list : selected}, function(data){
 		console.log(data);
-		loadUsersList() 
+		loadUsersList();
 		$('#modalAddUsers').modal('toggle');
 	});
 });
 
-
+//Send the leave query, same thing as kicking yourself
 $("#submitBtnLeave").click(function() {
 	$.post("modele/channelProcess.php", {function : "leaveChannel"}, function(data){
 				$('#modalLeave').modal('toggle');
 				console.log("leaveChannel()");
-				window.location.replace("?id=0");
+				window.location.replace("http://fc.isima.fr/~bezheng/zzchat/channels/");
 	});
 });
 
-
+//Click Trigger
 $("#submitBtnCreateChannel").click(function() {
 	$("#formCreateChannel").submit(function(){
 		validateformCreateChannel();
 	});
 });
 
+//Send the channel creation query
 function validateformCreateChannel(){
 	var name = $("#createChannelName").val();
 	var description = $("#createChannelDescription").val().replace(/\n/g, '<br />').substring(0,200);
 	$.post("modele/channelProcess.php", {function : "createChannel", name : name, description : description }, function(data){
 		$('#modalcreateChannel').modal('toggle');
 		console.log("createChannel()");
-		window.location.replace("channels.php?id="+data);
+		window.location.replace("channels/"+data);
 	});
 	$("#newChannelDescription").val("");
 	$("#createChannelDescription").val("");
 }
 
+//Click Trigger
 $("#submitBtnNewChannelName").click(function() {
 	$("#formRenameChannel").submit(function(){
 		validateformRenameChannel();
 	});
 });
 
+//Send the channel rename query
 function validateformRenameChannel(){
 	var name = $("input[name=newChannelName]").val();
 	$.post("modele/channelProcess.php", {function : "changeChannelName", newChannelName : name }, function(data){
@@ -92,6 +129,7 @@ function validateformRenameChannel(){
 	$("input[name=newChannelName]").val("");
 }
 
+//Click trigger
 $("#submitBtnChangeChannelDescription").click(function() {
 	if ($.trim($("#newChannelDescription").val())) {
 		$("#formChangeChannelDescription").submit(function(){
@@ -100,6 +138,7 @@ $("#submitBtnChangeChannelDescription").click(function() {
 	}
 });
 
+//Send the description change query, only 200 characters are sent
 function validateformChangeChannelDescription(){
 	var description = $("#newChannelDescription").val().replace(/\n/g, '<br />').substring(0,200);
 	console.log(description);
@@ -111,6 +150,7 @@ function validateformChangeChannelDescription(){
 	$("#newChannelDescription").val("");
 }
 
+//Load the current channel's information in the page (navbar, left side, ...) 
 function loadChannelInfo(){
 	$.post("modele/channelProcess.php", {function : "loadChannelInfo"}, function(data){
 		var obj = jQuery.parseJSON(data);
@@ -125,10 +165,14 @@ function loadChannelInfo(){
 }
 
 /******************************************************************************* Chat *******************************************************************************/
+
+//Click trigger
 $("#sendMessageBtn").click(function() {
 	chat.send($("#chatMsgTextArea").val());
 });
 
+
+//Fruits = history, register the last 20 valid sent messages
 var fruitsCursor = 0;
 var fruits = [""];
 
@@ -136,6 +180,7 @@ $("#chatMsgTextArea").keydown(function(e) {
 	switch(e.which) {
 	    case 13: //Enter
 			e.preventDefault();
+			//You can't send only spaces
 			if($("#chatMsgTextArea").val() && $.trim($("#chatMsgTextArea").val()) != ''){	
 				chat.send($(this).val());
 				fruits.unshift("");
@@ -158,9 +203,12 @@ $("#chatMsgTextArea").keydown(function(e) {
 	    break;
 	}
 }).bind('input propertychange', function() {
+		//Save the current input
 		fruits[0] = $("#chatMsgTextArea").val();
 });
 
+
+//Send files
 function sendFiles(){
 	var l = filesToUpload.length;
 	if(l>0){
@@ -193,6 +241,7 @@ function sendFiles(){
 	}
 }
 
+//Send the data type gif
 function sendGif(url){
 	stateStartValue[stateOverview['currentChatId']]++;	
 	$.post("modele/chatProcess.php", { function : "send", type : "gif",  url : url }, function(data){
@@ -202,6 +251,7 @@ function sendGif(url){
 	$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') });
 }
 
+//Send the data type text
 function sendChat(text){
 	//Send text
 	$.post("modele/chatProcess.php", { function : "send", type : "text",  message : text }, function(data){
@@ -213,10 +263,12 @@ function sendChat(text){
 	console.log("send()");
 }
 
+//Clear the typing textarea
 function clear(){
 	$("#chatMsgTextArea").val('').focus();
 }
 
+//Get the state array
 function getStateOfChat() {
 	$.post("modele/chatProcess.php", { function : "getState"}, function(data){
 		var obj = jQuery.parseJSON(data);
@@ -226,6 +278,7 @@ function getStateOfChat() {
 	});
 }
 
+//Get the initial state array
 function initStateStartValue(){
 	$.post("modele/chatProcess.php", { function : "getState"}, function(data){
 		var obj = jQuery.parseJSON(data);
@@ -235,6 +288,11 @@ function initStateStartValue(){
 	});
 }
 
+//Add recieved messages to chat div
+// normal message = text
+// chat command = command
+// file = file
+// gif = gif
 function addElementToChat(obj, i){
 	switch(obj.data[i].type) {
 		case "text":
@@ -256,6 +314,8 @@ function addElementToChat(obj, i){
 	}
 }
 
+// state overview = array of lines count in each chat the user is in, updated each second
+// state start value = array of lines count in each chat the user is in when he joined, not updated*
 var stateOverview = new Array();
 stateOverview['currentChatId'] = 0;
 stateOverview['channels'] = new Array;
@@ -263,31 +323,39 @@ stateOverview['channels'][0] = 0;
 
 var stateStartValue = new Array();
 
+// See if there's any new lines in each chat the user is in
 function updateChat(){	
 	$.post("modele/chatProcess.php", {function : "update", state : stateOverview['channels'][stateOverview['currentChatId']]}, function(data){
 		var obj = jQuery.parseJSON(data);
+		//Add new lines if yes
 		for (var i = obj.data.length - 1; i >= 0; i--) {
 			addElementToChat(obj, i);
 		}	
 		if(obj.data.length > 0){
-				if($("#chatbox").scrollTop() + 800 > $("#chatbox").prop('scrollHeight')){
-		$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') });
-	}
+			//Auto scroll the chat div if the users is scrolled down at the bottom
+			if($("#chatbox").scrollTop() + 800 > $("#chatbox").prop('scrollHeight')){
+				$("#chatbox").animate({ scrollTop: $("#chatbox").prop('scrollHeight') });
+			}
 		}
+
+		//Need to update some things, see below
 		stateOverview['channels'][stateOverview['currentChatId']] = obj.state;
 		getStateOfChat();
 		updateChannelsTag();
 		console.log("update()");
-			
+
 	});
 }
 
+//Not really useful but whatever
 function Chat () {
 	this.update = updateChat;
 	this.send = sendChat;
 	this.getState = getStateOfChat;
 }
 
+//Get the chat entire content with a 0 state
+//init = first update
 function init(){
 	$.post("modele/chatProcess.php", {function : "update", state : 0}, function(data){
 		var obj = jQuery.parseJSON(data);
@@ -302,6 +370,7 @@ function init(){
 	});
 }
 
+//Display the new messages tags
 function updateChannelsTag(){
 	var tab = [];
 	$.each(stateStartValue, function( index, value ) {
@@ -321,6 +390,7 @@ function updateChannelsTag(){
 
 /******************************************************************************* Gif/Emote popover *******************************************************************************/
 
+//Initiate all popovers
 $(document).ready(function(){
 	$('.gifPO').popover({ 
 		html : true,
@@ -364,12 +434,15 @@ $(document).ready(function(){
 		e.stopPropagation();
 	});
 
+	//Update unread message count on focus
+	//the problem is that chat is not updated while focused in but ON focus
 	$('#chatMsgTextArea').focus(function() {
 		stateStartValue[stateOverview['currentChatId']] = stateOverview['channels'][stateOverview['currentChatId']];
 		updateChannelsTag();
 	});
 });
 
+//Search gif triggers
 $('body').on("click", "button#gifSearchBtn", function(){
 	queryGif();
 }).on("keypress", "input#search", function(e){
@@ -393,6 +466,7 @@ $(".gifList").on('click', ".gifList", function (e) {
 	closeAllPopovers(e);
 });*/
 
+//Is this working or even used? I don't know
 function closeAllPopovers(e){
 	if(e==1){
 		$('.po').each(function () {
@@ -429,6 +503,7 @@ $("#res").scroll(function() {
 	}
 });*/
 
+//Send the search gif query using the GIPHY API, 50 gifs maximum
 function queryGif(){
 	$(".popover #gifRes").html(''); //Vide la div
 	//count = false;
@@ -446,6 +521,7 @@ function queryGif(){
 	});
 }
 
+//Display the query results in the popover
 function loadGif(results){
 /*
 	if(count !== false){
@@ -471,20 +547,22 @@ function loadGif(results){
 	$(".popover #gifRes").append("<p>No more gifs</p>");
 }
 
+
+//Load the emotes, you're going to have a bad time with a shitty laptop
 function loadEmotesPopover(){
-	$.getJSON("json/emotes/twitchemotes.json", function(data){ //Récupération du JSON, 50 gifs
+	$.getJSON("json/emotes/twitchemotes.json", function(data){ 
 		$.each(data.emotes, function(key, value){
 			$("#emotes_global").append('<img src="'+data.template.small.replace("{image_id}",value.image_id)+'" class="emote" title="'+key+'" />');
 		});
 	});
 
-	$.getJSON("json/emotes/bttvemotes.json", function(data){ //Récupération du JSON, 50 gifs
+	$.getJSON("json/emotes/bttvemotes.json", function(data){
 		$.each(data.emotes, function(key, value){
 			$("#emotes_bttv").append('<img src="https:'+data.urlTemplate.replace("{{id}}/{{image}}",value.id+"/1x")+'" class="emote" title="'+value.code.replace('\\',"")+'" />');
 		});
 	});
 
-	$.getJSON("json/emotes/customemotes.json", function(data){ //Récupération du JSON, 50 gifs
+	$.getJSON("json/emotes/customemotes.json", function(data){ 
 		$.each(data.subemotes, function(key, value){
 			$("#emotes_custom").append('<img src="'+data.template.small.replace("{image_id}",value.image_id)+'" class="emote" title="'+value.code+'" />');
 		});
@@ -496,6 +574,7 @@ function loadEmotesPopover(){
 
 /******************************************************************************* File upload popover *******************************************************************************/
 
+//File upload handling
 $("body").on('click', "#upload",function () {
 	sendFiles();
 	$('.fileUploadPO').popover('hide');
@@ -511,9 +590,11 @@ $("body").on('click', "#upload",function () {
 	$(this).remove();
 });
 
+//Files to upload array
 var filesToUpload = [];
 
- function checkUploadFile(){
+//Checks the files size, maximum is 8Mo
+function checkUploadFile(){
  	var files = $('#file-upload').prop("files");
  	//console.log(files);
  	filesToUpload = [];
@@ -568,6 +649,7 @@ function addFormatting(i){
 	$("#chatMsgTextArea").val($("#chatMsgTextArea").val()+'['+letter+'][/'+letter+']').focus();
 }
 
+//Send the color change query
 $("#submitColor").on('click', function(){
 	var c = $("#Ucolor").val();
 	$.post("modele/channelProcess.php", { function : "changeColor", newColor : c}, function(data){
@@ -577,6 +659,7 @@ $("#submitColor").on('click', function(){
 	});
  });
 
+//Send the password change query
 $("#submitUserPassword").on('click', function(){
 	if($("#newUserPassword").val() != $("#verifyNewUserPassword").val()){
 		$("#errpw").html("New password does not match");

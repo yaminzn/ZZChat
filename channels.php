@@ -1,5 +1,6 @@
 <?php
 
+//Redirect user if he's not logged in
 include_once('modele/redirect.php');
 
 if(!isset($_SESSION['lang'])){

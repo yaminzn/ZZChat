@@ -1,7 +1,8 @@
 <?php
 
-	include 'return.php';
+include 'return.php';
 
+//Change username color
 function changeUsernameColor($userId, $color){
 	$tab = returnUsersInfo();
 
@@ -14,6 +15,7 @@ function changeUsernameColor($userId, $color){
 	$_SESSION['color'] = $color;
 }
 
+//Change username password
 function changeUsernamePassword($userId, $oldpw, $newpw){
 	$res = 0;
 	$tab = returnUsersInfo();
@@ -32,6 +34,7 @@ function changeUsernamePassword($userId, $oldpw, $newpw){
 }
 
 //Not all commands adds text
+//Transform text command to the actual command
 function checkCommands($message){
 	$find = array('/^!cowsay\s(.*)$/', '/^!commands$/');
 	$replace = array('            \\
@@ -48,7 +51,7 @@ function checkCommands($message){
 
 	foreach($find as $key=>$value){
 		if(preg_match_all($value, $message, $matches)){
-			if(!empty($matches[1][0])){ //besoin d'argument
+			if(!empty($matches[1][0])){
 				switch ($key) {
 				    case 0:
 				        $text = "<br> ".$matches[1][0]." <br>".$replace[$key];
@@ -64,7 +67,7 @@ function checkCommands($message){
 				    break;
 				}
 			}
-			else{ //pas besoin d'argument
+			else{ 
 				switch ($key) {
 				    case 1:
 				    	$text = $replace[$key];
@@ -84,6 +87,7 @@ function checkCommands($message){
 	}
 }
 
+//Add a databloc to the channel
 function addDataToChannel($tab, $channelId){
 	$str = file_get_contents("../json/channels/".$channelId.".json");
 	$json = json_decode($str, true);
@@ -95,6 +99,7 @@ function addDataToChannel($tab, $channelId){
 	fclose($fp); 
 }
 
+//Transform the BBcode to HTML tags
 function showBBcodes($text) {
 	// BBcode array
 	$find = array(
@@ -114,6 +119,7 @@ function showBBcodes($text) {
 	return preg_replace($find,$replace,$text);
 }
 
+//Delete a channel
 function deleteChannel($channelId){
 	//Remove channel in channel.json
 	$str = file_get_contents("../json/channel.json");
@@ -130,15 +136,18 @@ function deleteChannel($channelId){
 	unlink("../json/channels/".$channelId.".json");
 }
 
+//Remove a user from a channel
+//Delete the userid from the channel's useridlist
+//Delete the channelid from the users's channelidlist 
 function removeUserFromChannel($userId, $channelId){
-	//Supprime le channelId de users.json
+
 	$str = file_get_contents("../json/users.json");
 	$json = json_decode($str, true);
 
 	if(($key = array_search($channelId, $json['users'][$userId]['channelIdList'])) !== false) {
     	unset($json['users'][$userId]['channelIdList'][$key]);
 
-    	//Remise en ordre des index
+    	//Reset the index
     	$json['users'][$userId]['channelIdList'] = array_values($json['users'][$userId]['channelIdList']);
 	}
 
@@ -146,7 +155,7 @@ function removeUserFromChannel($userId, $channelId){
 	fwrite($fp, json_encode($json));
 	fclose($fp);
 
-	//Supprime le userId de channel.json
+
 	$str = file_get_contents("../json/channel.json");
 	$json = json_decode($str, true);
 
@@ -159,23 +168,20 @@ function removeUserFromChannel($userId, $channelId){
 	fwrite($fp, json_encode($json));
 	fclose($fp);
 
-	//S'il n'y a plus personne dans le channel, on le supprime (théoriquement)
+	//Delete channel if it is empty
 	if(empty($json['channel'][$channelId]['userIdList'])){
 		//deleteChannel($channelId);
 	}
 }
 
 function createChannelJSON($channelId){
-	//Créer le fichier de conversation du channel qui se nomme : "channelId".json 
+	//Create the channel file
 	$filename = "../json/channels/".$channelId.".json";
 	$myfile = fopen($filename, "w");
 
-	//Régler les permissions
 	chmod($filename, 0777);
 
-
-
-	//Message lors de la création, à changer
+	//Message on creation
 	$tab['message'] =  array(array("username" => "Chatbot", "type" => "text", "text" => "Start chatting by inviting your friends!", "time" => date('H:i'), "color" => "#cc0000"));
 
 	fwrite($myfile, json_encode($tab));
@@ -292,7 +298,10 @@ function checkCookieAutoLogin(){
 
 						$number_of_days = 30 ;
 						$date_of_expiry = time() + 60 * 60 * 24 * $number_of_days ;
-						setcookie("token", $token, $date_of_expiry);
+
+						$_SESSION['cctoken'] = $token;
+						$_SESSION['ccd'] = $date_of_expiry;
+
 
 						$json['cookie'][$i]['token'] = $token;
 						$json['cookie'][$i]['date_of_expiry'] = $date_of_expiry;
@@ -338,7 +347,7 @@ function checkuser($username, $pwd)
 	return 0;
 }
 
-/* Log l'utilisateur sur le site, charge ses variables de session */
+//Load a user SESSION variables
 function loginUser($username){
 	$str = file_get_contents('../json/users.json');
 	$json = json_decode($str, true);
@@ -358,7 +367,7 @@ function loginUser($username){
 
 //addAccount.php
 
-/* Ajoute un nouvel utilisateur dans le fichier JSON */
+/* Add a user to users */
 function addUser($username, $pwd){
 	
 	$str = file_get_contents('../json/users.json');
@@ -380,7 +389,7 @@ function addUser($username, $pwd){
 	$tab['password'] = sha1($pwd);
 	$tab['level'] = 0;
 	$tab['color'] = "#000000";
-	$tab['channelIdList'] = Array();
+	$tab['channelIdList'] = Array("0");
 
 	
 	$json['users'][$nb] = $tab;

@@ -29,3 +29,7 @@ Features list:
 -Text formatting
 
 -New messages count since connection
+
+-Auto logging with cookies
+
+-Rewrited URL

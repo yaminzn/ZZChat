@@ -1,4 +1,5 @@
 <?php
+	//return online/offline users in chat
 	include 'functions.php';
 	include 'return.php';
 

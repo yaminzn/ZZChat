@@ -9,12 +9,17 @@
 	$function = $_POST['function'];
 
 	$log = array();
+
+	//Process all chat related queries
 	
 	switch($function) {
 		
+		//When the user send data
 		case('send'):
 			switch ($_POST['type']) {
+				//If it's a regular message
 				case "text":
+					//His status is updated
 					updateUserActivity();
 					if(empty($_POST['message'])){
 						break;
@@ -22,6 +27,7 @@
 
 					$message = htmlentities(strip_tags($_POST['message']));
 
+					//Don't accept blank messages
 					if (preg_match("/^[\s]+$/", $message)) {
 						break;
 					}
@@ -37,10 +43,11 @@
 
 					addDataToChannel($tab, $_SESSION['currentChatId']);
 
+					//Check if this was a command
 					checkCommands($message);
 
 				break;
-
+				//If it's a gif
 				case "gif":
 					if(empty($_POST['url'])){
 						break;
@@ -61,6 +68,7 @@
 			}					
 		break;
 		
+		//Return new lines in the current chat
 		case('update'):
 			$state = $_POST['state'];
 			
@@ -80,13 +88,13 @@
 				for($i=$state;$i<$count;$i++) {
 					$test[$i-$state] = textToEmote($json['message'][$count-$i+$state-1]);
 				}
-				//print_r($test);
 				$log['data'] = $test;
 			}
 
 			$log['state'] = $count;
 		break;
-		
+
+		//return the state array, see "stateOverview" in JS
 		case('getState'):
 			$list = returnUserChannelIdList($_SESSION['userId']);
 			$size = count($list);
@@ -99,6 +107,6 @@
 			$log['channels'] = $tab;
 		break;
     }
-	
+	//Returned in json for the JS
     echo json_encode($log);
 ?>

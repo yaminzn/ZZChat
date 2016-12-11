@@ -1,9 +1,6 @@
 <?php
 
-include 'modele/functions.php';
-include 'modele/return.php';
-checkCookieAutoLogin();
-
+//Hello, this is dog
 include('vue/VUEindex.php');
 
 

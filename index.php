@@ -1,6 +1,6 @@
 <?php
 
-
+//Check SESSION variables
 if(!isset($_SESSION)) {
 	session_start();
 }
@@ -13,6 +13,10 @@ if($_SESSION["loginstatus"] != 0){
 	header('Location: http://fc.isima.fr/~bezheng/zzchat/channels/'); 
 	exit();
 }
+
+include 'modele/functions.php';
+include 'modele/return.php';
+checkCookieAutoLogin();
 
 if(!isset($_SESSION['lang'])){
 	include("lang/en-lang.php");
