@@ -380,7 +380,7 @@ function addUser($username, $pwd){
 		}
 	}
 	
-	/* Le nom de compte est valide : on ajoute l'entrée */
+	//Valide username
 	
 	$nb = count($json['users']);
 	
@@ -397,7 +397,10 @@ function addUser($username, $pwd){
 	$fp = fopen ('../json/users.json','w') or die("Unable to open file users"); 
 	fwrite($fp, json_encode($json));
 	fclose($fp);
-	
+
+	//Add user to global channel
+	addUserToChannel($tab['id'],0);
+
 	return 1;
 }
 
